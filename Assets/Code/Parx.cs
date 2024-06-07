@@ -230,6 +230,16 @@ public class Parx : MonoBehaviour
                 _blox[x,y].Init(x,y);
             }
         }
+
+        UpdateCameraControllerTarget();
+    }
+    
+    private void UpdateCameraControllerTarget()
+    {
+        int i = gridSize - 1;
+
+        CameraController.instance.target1 = _blox[0,0].transform;
+        CameraController.instance.target2 = _blox[i,i].transform;
     }
 
     private ParxBlock SpawnNewBlock(Vector3 spawnPosition, int x, int y)
