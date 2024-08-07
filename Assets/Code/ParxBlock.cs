@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System;
 
 public class ParxBlock : MonoBehaviour
 {
@@ -10,6 +9,8 @@ public class ParxBlock : MonoBehaviour
 
     public Material matC1;
     public Material matC2;
+
+    public Color[] colors;
 
     private MeshRenderer _renderer;
 
@@ -31,16 +32,27 @@ public class ParxBlock : MonoBehaviour
         _renderer.material = (x+y)%2==0 ? matC1 : matC2;
     }
 
+    private int clrIndx = 0;
     void OnMouseOver() 
     { 
         if (Input.GetMouseButtonDown(0))
         {
-            Parx.instance.PlaceTree(_x, _y, 3);
+            if ( Input.GetKey(KeyCode.LeftShift) )
+            {
+                _renderer.material.color = colors[clrIndx];
+                clrIndx++;
+                if ( clrIndx >= colors.Length ) clrIndx = 0;
+            }
+            else
+            {
+                Parx.instance.PlaceTree(_x, _y, 3);
+            }
         }
     }
 
     public void ToggleFrontPlate(bool tgl)
     {
-        frontPlate.SetActive(tgl);
+        return;
+        // frontPlate.SetActive(tgl);
     }
 }

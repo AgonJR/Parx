@@ -17,6 +17,7 @@ public class Parx : MonoBehaviour
     private int s;
 
     private int[,] _grid;
+    private int[,] _clrs;
     private int[] _bordr;
     
     void Awake()
@@ -98,6 +99,7 @@ public class Parx : MonoBehaviour
     {
             s  = gridSize;
         _grid  = new int[s,  s];
+        _clrs  = new int[s,  s];
         _bordr = new int[s * 4];
 
         for ( int x = 0; x < s; x++ )
@@ -105,6 +107,7 @@ public class Parx : MonoBehaviour
             for ( int y = 0; y < s; y++ )
             {
                 _grid[x,y] = 0;
+                _clrs[x,y] = 0;
             }
         }
     }
@@ -244,7 +247,7 @@ public class Parx : MonoBehaviour
 
     private ParxBlock SpawnNewBlock(Vector3 spawnPosition, int x, int y)
     {
-        GameObject newBlock = GameObject.Instantiate(parxBlock);
+        GameObject newBlock = Instantiate(parxBlock);
 
         newBlock.transform.parent   = gridParent;
         newBlock.transform.position = spawnPosition;
@@ -282,13 +285,15 @@ public class Parx : MonoBehaviour
 
     private ParxBorder SpawnNewBorderBulb(Vector3 spawnPosition, int x, int y)
     {
-        GameObject newBulb = GameObject.Instantiate(parxBordr);
+        GameObject newBulb = Instantiate(parxBordr);
 
         newBulb.transform.parent   = gridParent;
         newBulb.transform.position = spawnPosition;
         newBulb.name               = "ParxBulb (" + (x+1) + " , " + (y+1) + ")";
 
-        return newBulb.GetComponent<ParxBorder>();
+        ParxBorder bulbRef = newBulb.GetComponent<ParxBorder>();
+        bulbRef.Toggle(false);
+        return bulbRef;
     }
 
 }

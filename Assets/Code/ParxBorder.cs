@@ -2,18 +2,15 @@ using UnityEngine;
 
 public class ParxBorder : MonoBehaviour
 {
+    public Light lightRef;
+    public MeshRenderer rendererRef;
+    [Space]
     public Material matOff;
     public Material matOn ;
 
-    private MeshRenderer _renderer;
-
-    void Start()
-    {
-        _renderer = gameObject.GetComponent<MeshRenderer>();
-    }
-
     public void Toggle(bool o)
     {
-        _renderer.material = o ? matOn : matOff;
+        rendererRef.material = o ? matOn : matOff;
+        lightRef.color = rendererRef.material.color;
     }
 }
