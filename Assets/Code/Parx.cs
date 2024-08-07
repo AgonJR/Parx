@@ -43,19 +43,19 @@ public class Parx : MonoBehaviour
 
     public bool PlaceTree(int x, int y, int v)
     {
-        Debug.Log(" - Placing " + v + " at [ " + x + " , " + y + "] ");
+        // Debug.Log(" - Placing " + v + " at [ " + x + " , " + y + "] ");
 
         if (_grid[x,y] == 0 || _grid[x,y] == v)
         {
             int m = _grid[x,y] == v ? 1 : -1;
 
-            for ( int iX = 0; iX < s; iX++ ) {_grid[iX,y] += m;  _blox[iX,y].ToggleFrontPlate(_grid[iX,y] != 0);} // Mark Row
-            for ( int iY = 0; iY < s; iY++ ) {_grid[x,iY] += m;  _blox[x,iY].ToggleFrontPlate(_grid[x,iY] != 0);} // Mark Column
+            for ( int iX = 0; iX < s; iX++ ) {_grid[iX,y] += m; } // Mark Row
+            for ( int iY = 0; iY < s; iY++ ) {_grid[x,iY] += m; } // Mark Column
 
-            if ( x > 0   && y > 0  ) {_grid[x-1,y-1] += m; _blox[x-1,y-1].ToggleFrontPlate(_grid[x-1,y-1] != 0);} // Top Left
-            if ( x < s-1 && y > 0  ) {_grid[x+1,y-1] += m; _blox[x+1,y-1].ToggleFrontPlate(_grid[x+1,y-1] != 0);} // Top Right
-            if ( x > 0   && y < s-1) {_grid[x-1,y+1] += m; _blox[x-1,y+1].ToggleFrontPlate(_grid[x-1,y+1] != 0);} // Bottom Left
-            if ( x < s-1 && y < s-1) {_grid[x+1,y+1] += m; _blox[x+1,y+1].ToggleFrontPlate(_grid[x+1,y+1] != 0);} // Bottom Right
+            if ( x > 0   && y > 0  ) {_grid[x-1,y-1] += m; } // Top Left
+            if ( x < s-1 && y > 0  ) {_grid[x+1,y-1] += m; } // Top Right
+            if ( x > 0   && y < s-1) {_grid[x-1,y+1] += m; } // Bottom Left
+            if ( x < s-1 && y < s-1) {_grid[x+1,y+1] += m; } // Bottom Right
 
             _grid[x,y] = m == 1 ? 0 : v; // Mark Selection
 

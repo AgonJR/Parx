@@ -48,11 +48,17 @@ public class ParxBlock : MonoBehaviour
                 Parx.instance.PlaceTree(_x, _y, 3);
             }
         }
+
+        ToggleFrontPlate(true);
+    }
+
+    void OnMouseExit()
+    {
+        ToggleFrontPlate(false);
     }
 
     public void ToggleFrontPlate(bool tgl)
     {
-        return;
-        // frontPlate.SetActive(tgl);
+        frontPlate.SetActive(tgl);
     }
 }
