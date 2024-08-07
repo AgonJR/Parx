@@ -6,7 +6,10 @@ public class ParxBlock : MonoBehaviour
     [Header("References")]
     public TMP_Text textComponent;
     public GameObject  frontPlate;
-
+    [Space]
+    public GameObject markD;
+    public GameObject markX;
+    [Space]
     public Material matC1;
     public Material matC2;
 
@@ -20,6 +23,12 @@ public class ParxBlock : MonoBehaviour
     public void SetText(string text)
     {
         textComponent.text = text;
+    }
+
+    public void ToggleMarker(int mark)
+    {
+        markX.SetActive(mark > 0);
+        markD.SetActive(mark < 0);
     }
 
     public void Init(int x, int y)

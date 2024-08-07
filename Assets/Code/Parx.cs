@@ -36,7 +36,7 @@ public class Parx : MonoBehaviour
         InitGridBlox(gridSize);
         InitGridBorder();
 
-        PrintGrid();
+        UpdateGridPresentation();
     }
 
     // GAME LOGIC
@@ -59,11 +59,8 @@ public class Parx : MonoBehaviour
 
             _grid[x,y] = m == 1 ? 0 : v; // Mark Selection
 
-            _blox[x,y].ToggleFrontPlate(m != 1);
-
             UpdateBorders();
-
-            PrintGrid();
+            UpdateGridPresentation();
 
             return true;
         }
@@ -142,8 +139,6 @@ public class Parx : MonoBehaviour
 
                     string blockTxt = _grid[x,y] == 0 ? " " : _grid[x,y] < 0 ? "•" : _grid[x,y].ToString();
 
-                    _blox[x,y].SetText(blockTxt);
-
                     outputString += "[" + blockTxt + "] ";
 
                 if ( x == s-1 ) { outputString += "(" + _bordr[(s*2)+y] + ") "; }
@@ -182,8 +177,8 @@ public class Parx : MonoBehaviour
         {
             _brdr[i].Toggle(false);
         }
-
-        PrintGrid();
+        
+        UpdateGridPresentation();
     }
 
     public void RegenerateGrid()
@@ -300,6 +295,18 @@ public class Parx : MonoBehaviour
         ParxBorder bulbRef = newBulb.GetComponent<ParxBorder>();
         bulbRef.Toggle(false);
         return bulbRef;
+    }
+
+    private void UpdateGridPresentation()
+    {
+        for ( int y = 0; y < s; y++ )
+        {
+            for ( int x = 0; x < s; x++ )
+            {
+                _blox[x,y].ToggleMarker(_grid[x,y]);
+                _blox[x,y].SetText(" ");
+            }
+        }
     }
 
 }
