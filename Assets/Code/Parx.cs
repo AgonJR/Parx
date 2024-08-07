@@ -10,9 +10,14 @@ public class Parx : MonoBehaviour
 
     public static Parx instance;
 
+
     public int gridSize = 5;
 
+    [Space]
+
     public Transform gridParent;
+    public Transform borderParent;
+
 
     private int s;
 
@@ -267,8 +272,8 @@ public class Parx : MonoBehaviour
             float x2 = x1 + (s*spawnDeltaX) - 0.3f;
             float yP = spawnStartY - (y*spawnDeltaY);
 
-            _brdr[s+y]     = SpawnNewBorderBulb(new Vector3(x1, 0.0f, yP), -1, y);
-            _brdr[(s*2)+y] = SpawnNewBorderBulb(new Vector3(x2, 0.0f, yP),  s, y);
+            _brdr[s+y]     = SpawnNewBorderBulb(new Vector3(x1, 0.0f, yP), new Vector3(0.0f, 0.0f, 90.0f), -1, y);
+            _brdr[(s*2)+y] = SpawnNewBorderBulb(new Vector3(x2, 0.0f, yP), new Vector3(0.0f, 0.0f, 90.0f),  s, y);
         }
         
         // Spawn Columns
@@ -278,18 +283,19 @@ public class Parx : MonoBehaviour
             float y2 = y1 - (s*spawnDeltaY) + 0.3f;
             float xP = spawnStartX + (x*spawnDeltaX);
 
-            _brdr[x]       = SpawnNewBorderBulb(new Vector3(xP, 0.0f, y1), x, -1);
-            _brdr[(s*3)+x] = SpawnNewBorderBulb(new Vector3(xP, 0.0f, y2), x,  s);
+            _brdr[x]       = SpawnNewBorderBulb(new Vector3(xP, 0.0f, y1), new Vector3(0.0f, 90.0f, 90.0f), x, -1);
+            _brdr[(s*3)+x] = SpawnNewBorderBulb(new Vector3(xP, 0.0f, y2), new Vector3(0.0f, 90.0f, 90.0f), x,  s);
         }
     }
 
-    private ParxBorder SpawnNewBorderBulb(Vector3 spawnPosition, int x, int y)
+    private ParxBorder SpawnNewBorderBulb(Vector3 spawnPosition, Vector3 spawnRot, int x, int y)
     {
         GameObject newBulb = Instantiate(parxBordr);
 
-        newBulb.transform.parent   = gridParent;
-        newBulb.transform.position = spawnPosition;
-        newBulb.name               = "ParxBulb (" + (x+1) + " , " + (y+1) + ")";
+        newBulb.transform.parent            = borderParent;
+        newBulb.transform.position          = spawnPosition;
+        newBulb.transform.localEulerAngles  = spawnRot;
+        newBulb.name                        = "ParxBulb (" + (x+1) + " , " + (y+1) + ")";
 
         ParxBorder bulbRef = newBulb.GetComponent<ParxBorder>();
         bulbRef.Toggle(false);
