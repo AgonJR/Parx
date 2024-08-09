@@ -73,27 +73,39 @@ public class Parx : MonoBehaviour
         // Check Rows
         for ( int y = 0; y < s; y++ )
         {
-            int count = 0;
+            int tris = 0;
+            int dots = 0;
             for ( int x = 0; x < s; x++ )
             {
-                if ( _grid[x,y] > 0 ) count++;
+                if ( _grid[x,y] > 0 ) tris++;
+                if ( _grid[x,y] < 0 ) dots++;
             }
 
-            _bordr[s+y]     = count > 0 ? 1 : 0; _brdr[ s   +y].Toggle(count > 0);
-            _bordr[(s*2)+y] = count > 0 ? 1 : 0; _brdr[(s*2)+y].Toggle(count > 0);
+            _bordr[s+y]     = tris > 0 ? 1 : 0; 
+            _bordr[(s*2)+y] = tris > 0 ? 1 : 0;
+
+                 if ( tris >  0     ) { _brdr[s+y].Toggle(true ); _brdr[(s*2)+y].Toggle(true ); }
+            else if ( dots <  s - 1 ) { _brdr[s+y].Extinguish() ; _brdr[(s*2)+y].Extinguish() ; }
+            else if ( dots == s     ) { _brdr[s+y].Toggle(false); _brdr[(s*2)+y].Toggle(false); }
         }
 
         // Check Columns
         for ( int x = 0; x < s; x++ )
         {
-            int count = 0;
+            int tris = 0;
+            int dots = 0;
             for ( int y = 0; y < s; y++ )
             {
-                if ( _grid[x,y] > 0 ) count++;
+                if ( _grid[x,y] > 0 ) tris++;
+                if ( _grid[x,y] < 0 ) dots++;
             }
 
-            _bordr[x]       = count > 0 ? 1 : 0; _brdr[      x].Toggle(count > 0);
-            _bordr[(s*3)+x] = count > 0 ? 1 : 0; _brdr[(s*3)+x].Toggle(count > 0);
+            _bordr[x]       = tris > 0 ? 1 : 0; 
+            _bordr[(s*3)+x] = tris > 0 ? 1 : 0;
+
+                 if ( tris >  0     ) { _brdr[x].Toggle(true ); _brdr[(s*3)+x].Toggle(true ); }
+            else if ( dots <  s - 1 ) { _brdr[x].Extinguish() ; _brdr[(s*3)+x].Extinguish() ; }
+            else if ( dots == s     ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
         }
     }
 
@@ -177,7 +189,7 @@ public class Parx : MonoBehaviour
         {
             _brdr[i].Toggle(false);
         }
-        
+
         UpdateGridPresentation();
     }
 
@@ -293,7 +305,8 @@ public class Parx : MonoBehaviour
         newBulb.name                        = "ParxBulb (" + (x+1) + " , " + (y+1) + ")";
 
         ParxBorder bulbRef = newBulb.GetComponent<ParxBorder>();
-        bulbRef.Toggle(false);
+    
+        bulbRef.Extinguish();
         return bulbRef;
     }
 
