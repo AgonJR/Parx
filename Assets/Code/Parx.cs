@@ -95,9 +95,9 @@ public class Parx : MonoBehaviour
             _bordr[s+y]     = tris > 0 ? 1 : 0; 
             _bordr[(s*2)+y] = tris > 0 ? 1 : 0;
 
-                 if ( tris >  0     ) { _brdr[s+y].Toggle(true ); _brdr[(s*2)+y].Toggle(true ); }
-            else if ( dots <  s - 1 ) { _brdr[s+y].Extinguish() ; _brdr[(s*2)+y].Extinguish() ; }
-            else if ( dots == s     ) { _brdr[s+y].Toggle(false); _brdr[(s*2)+y].Toggle(false); }
+                 if ( tris >  0 ) { _brdr[s+y].Toggle(true ); _brdr[(s*2)+y].Toggle(true ); }
+            else if ( dots <  s ) { _brdr[s+y].Extinguish() ; _brdr[(s*2)+y].Extinguish() ; }
+            else if ( dots == s ) { _brdr[s+y].Toggle(false); _brdr[(s*2)+y].Toggle(false); }
         }
 
         // Check Columns
@@ -114,9 +114,9 @@ public class Parx : MonoBehaviour
             _bordr[x]       = tris > 0 ? 1 : 0; 
             _bordr[(s*3)+x] = tris > 0 ? 1 : 0;
 
-                 if ( tris >  0     ) { _brdr[x].Toggle(true ); _brdr[(s*3)+x].Toggle(true ); }
-            else if ( dots <  s - 1 ) { _brdr[x].Extinguish() ; _brdr[(s*3)+x].Extinguish() ; }
-            else if ( dots == s     ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
+                 if ( tris >  0 ) { _brdr[x].Toggle(true ); _brdr[(s*3)+x].Toggle(true ); }
+            else if ( dots <  s ) { _brdr[x].Extinguish() ; _brdr[(s*3)+x].Extinguish() ; }
+            else if ( dots == s ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
         }
     }
 
