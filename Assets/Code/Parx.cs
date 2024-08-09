@@ -41,7 +41,7 @@ public class Parx : MonoBehaviour
 
     // GAME LOGIC
 
-    public bool PlaceTree(int x, int y, int v)
+    public bool PlaceTree(int x, int y, int v, bool addToUndo = false)
     {
         // Debug.Log(" - Placing " + v + " at [ " + x + " , " + y + "] ");
 
@@ -61,6 +61,17 @@ public class Parx : MonoBehaviour
 
             UpdateBorders();
             UpdateGridPresentation();
+
+            if ( IsBoaredAllGreen() )
+            {
+                instance.gridSize++;
+                instance.RegenerateGrid();
+            }
+
+            if ( addToUndo )
+            {
+                
+            }
 
             return true;
         }
@@ -107,6 +118,13 @@ public class Parx : MonoBehaviour
             else if ( dots <  s - 1 ) { _brdr[x].Extinguish() ; _brdr[(s*3)+x].Extinguish() ; }
             else if ( dots == s     ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
         }
+    }
+
+    private bool IsBoaredAllGreen()
+    {
+        foreach ( int bulb in _bordr ) 
+        { if ( bulb != 1 ) return false; }
+        return true;
     }
 
     private void InitGrid(int gridSize = 5)
