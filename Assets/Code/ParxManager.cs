@@ -21,6 +21,7 @@ public class ParxManager : MonoBehaviour
         if ( Input.GetKeyDown(KeyCode.N) || RegenerateBoard)
         {
             Parx.instance.RegenerateGrid();
+            CameraController.instance.FrameGridToCamera();
             RegenerateBoard = false;
         }
 

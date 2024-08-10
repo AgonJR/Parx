@@ -14,14 +14,15 @@ public class CameraController : MonoBehaviour
     {
         instance = this;
         _mainCamera = Camera.main;
+
     }
 
-    void Update()
+    void Start()
     {
         FrameGridToCamera();
     }
 
-    private void FrameGridToCamera()
+    public void FrameGridToCamera()
     {
         if (target1 != null && target2 != null)
         {
@@ -33,6 +34,13 @@ public class CameraController : MonoBehaviour
             Vector3 newPosition = bounds.center - _mainCamera.transform.forward * distance;
 
             _mainCamera.transform.position = newPosition;
+        }
+
+
+        if ( _mainCamera.orthographic )
+        {
+            float size = Parx.instance.gridSize < 5 ? 5 : Parx.instance.gridSize;
+            _mainCamera.orthographicSize = size;
         }
     }
 }

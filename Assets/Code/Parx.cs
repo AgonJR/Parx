@@ -32,8 +32,8 @@ public class Parx : MonoBehaviour
 
     void Start()
     {
-        InitGrid(gridSize);
-        InitGridBlox(gridSize);
+        InitGrid();
+        InitGridBlox();
         InitGridBorder();
 
         UpdateGridPresentation();
@@ -127,7 +127,7 @@ public class Parx : MonoBehaviour
         return true;
     }
 
-    private void InitGrid(int gridSize = 5)
+    private void InitGrid()
     {
             s  = gridSize;
         _grid  = new int[s,  s];
@@ -226,9 +226,11 @@ public class Parx : MonoBehaviour
             GameObject.Destroy(_brdr[i].gameObject);
         }
 
-        InitGrid(gridSize);
-        InitGridBlox(gridSize);
+        InitGrid();
+        InitGridBlox();
         InitGridBorder();
+        
+        CameraController.instance.FrameGridToCamera();
 
         PrintGrid();
     }
@@ -247,7 +249,7 @@ public class Parx : MonoBehaviour
     private ParxBlock [,] _blox;
     private ParxBorder[ ] _brdr;
 
-    public void InitGridBlox(int gridSize = 5)
+    public void InitGridBlox()
     {
             s = gridSize;
         _blox = new ParxBlock[s, s];
