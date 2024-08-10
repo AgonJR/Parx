@@ -12,6 +12,7 @@ public class ParxBlock : MonoBehaviour
     [Space]
     public Material matC1;
     public Material matC2;
+    public Color emittClr;
 
     public Color[] colors;
 
@@ -29,6 +30,8 @@ public class ParxBlock : MonoBehaviour
     {
         markX.SetActive(mark > 0);
         markD.SetActive(mark < 0);
+
+        // _renderer.material.SetColor("_EmissionColor", mark != 0 ? emittClr : Color.black);
     }
 
     public void Init(int x, int y)
