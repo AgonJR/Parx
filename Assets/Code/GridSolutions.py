@@ -42,7 +42,9 @@ def isGridSolved(grid):
     return count == 0
 
 
-def fillGrid(grid, x):
+def FindAllSolutions(grid, x):
+    if x >= len(grid):
+        return
     for y in range(len(grid[x])):
         if grid[x][y] == 0:
             gCopy = [row[:] for row in grid]
@@ -50,29 +52,54 @@ def fillGrid(grid, x):
             if isGridFull(gCopy) and isGridSolved(gCopy) and gridExists(gCopy) == False:
                 storeGrid(gCopy)
             else:
-                fillGrid(gCopy, x+1)
+                FindAllSolutions(gCopy, x+1)
                 
 
-storage = {}
+storage = []
+
+def convertGridToInt(grid):
+    val = ""
+    for x in range(len(grid)):
+        for y in range(len(grid[x])):
+            if grid[x][y] == 3:
+                val += str(y)
+    return val
+    
 
 def storeGrid(grid):
-    grid_tuple = tuple(tuple(row) for row in grid)
-    storage[grid_tuple] = grid
+    val = convertGridToInt(grid)
+    if val in storage:
+        return
+    storage.append(val)
 
 def gridExists(grid):
-    grid_tuple = tuple(tuple(row) for row in grid)
-    return grid_tuple in storage
+    if storage.count == 0: return False
+    return convertGridToInt(grid) in storage
+
+def saveToFile(strings, fileName):
+    with open(fileName, 'w') as file:
+        for string in strings:
+            file.write(string + '\n')
+
 
 # - - -
 # MAIN 
 # - - -
 
-gridSize = 5
+gridSize = 8
 grid = generate_grid(gridSize)
 
-fillGrid(grid, 0)
+FindAllSolutions(grid, 0)
 
-printGrid(storage[list(storage.keys())[3]])
+x = 0
+for c in storage[9]:
+    placeTree(grid, x, int(c))
+    x += 1
+
+printGrid(grid)
+
+file = "gridSolutions_" + str(gridSize) + ".txt"
+saveToFile(storage, file)
 
 print("\n - Found ", len(storage), " Solutions ! ")
 
