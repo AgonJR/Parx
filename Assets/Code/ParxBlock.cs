@@ -34,7 +34,7 @@ public class ParxBlock : MonoBehaviour
         // _renderer.material.SetColor("_EmissionColor", mark != 0 ? emittClr : Color.black);
     }
 
-    public void Init(int x, int y)
+    public void Init(int x, int y, int clr = 0)
     {
         _renderer = gameObject.GetComponentInChildren<MeshRenderer>();
 
@@ -42,9 +42,10 @@ public class ParxBlock : MonoBehaviour
         _y = y;
 
         _renderer.material = (x+y)%2==0 ? matC1 : matC2;
+        if(clr>0)_renderer.material.color = colors[clr];
     }
 
-    private int clrIndx = 0;
+    private int clrIndx = 1;
     void OnMouseOver() 
     { 
         if (Input.GetMouseButtonDown(0))

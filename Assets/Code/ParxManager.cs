@@ -8,8 +8,8 @@ public class ParxManager : MonoBehaviour
     [Space]
     public int solutionNo = 0;
     public bool placeSolution = false;
-    [Space]
-    public string[] gridSolutions;
+    
+    public static string[] gridSolutions;
     
     
     void Start()

@@ -33,6 +33,7 @@ public class Parx : MonoBehaviour
     void Start()
     {
         InitGrid();
+        InitColors();
         InitGridBlox();
         InitGridBorder();
 
@@ -143,6 +144,16 @@ public class Parx : MonoBehaviour
             }
         }
     }
+    
+    private void InitColors()
+    {
+        string sol = ParxManager.gridSolutions[Random.Range(0, ParxManager.gridSolutions.Length)];
+
+        for ( int x = 0; x < gridSize; x++ )
+        {
+            _clrs[x, sol[x]-'0'] = x+1;
+        }
+    }
 
     private void PrintGrid()
     {
@@ -227,6 +238,7 @@ public class Parx : MonoBehaviour
         }
 
         InitGrid();
+        InitColors();
         InitGridBlox();
         InitGridBorder();
         
@@ -262,7 +274,7 @@ public class Parx : MonoBehaviour
                 float yPos = spawnStartY - (y*spawnDeltaY);
 
                 _blox[x,y] = SpawnNewBlock(new Vector3(xPos, 0.0f,  yPos), x, y);
-                _blox[x,y].Init(x,y);
+                _blox[x,y].Init(x,y, _clrs[x,y]);
             }
         }
 

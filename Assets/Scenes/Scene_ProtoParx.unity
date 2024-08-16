@@ -188,6 +188,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClearBoard: 0
   RegenerateBoard: 0
+  solutionNo: 0
+  placeSolution: 0
+  gridSolutions: []
 --- !u!4 &165404039
 Transform:
   m_ObjectHideFlags: 0
@@ -215,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdd705d940a80b4b8191d61763d4c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 5
+  gridSize: 6
   gridParent: {fileID: 2012386479}
   borderParent: {fileID: 1382681370}
   parxBlock: {fileID: 7989380139122987301, guid: 4f1c0bf8a4453794ca772a2ed8881ffd, type: 3}
