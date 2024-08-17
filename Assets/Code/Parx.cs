@@ -153,20 +153,31 @@ public class Parx : MonoBehaviour
         ParxManager.instance.solutionNo = UnityEngine.Random.Range(0, ParxManager.gridSolutions.Length);
         string sol = ParxManager.gridSolutions[ParxManager.instance.solutionNo];
 
+        // Randomize Color Order
+        List<int> C  = new List<int>();
+        List<int> RC = new List<int>();
+        for ( int x = 0; x < gridSize; x++ ) C.Add(x + 1);
+        for ( int x = 0; x < gridSize; x++ )
+        {
+            int rc = UnityEngine.Random.Range(0, C.Count);
+            RC.Add(C[rc]);
+            C.RemoveAt(rc);
+        }
+
         // Set Solution Tile Colors
         for ( int x = 0; x < gridSize; x++ )
         {
-            _clrs[x, sol[x]-'0'] = x+1;
+            _clrs[x, sol[x]-'0'] = RC[x];
         }
 
         // Grow Solution Squares
         int N = (gridSize * gridSize) - gridSize;
         for ( int x = 0; x < gridSize; x++ )
         {
-            int c = x + 1;
+            int c = RC[x];
             int y = sol[x] - '0';
             int n = x == gridSize-1 ? N : UnityEngine.Random.Range(1, N/2);
-
+            
             GrowColors(x,y,c,n);
 
             N -= n;
