@@ -49,7 +49,14 @@ public class ParxBlock : MonoBehaviour
     { 
         if (Input.GetMouseButtonDown(0))
         {
-            Parx.instance.PlaceTree(_x, _y, 3);
+            if ( Input.GetKey(KeyCode.LeftShift)) 
+                 Parx.instance.PlaceMarker(_x, _y, true);
+            else Parx.instance.PlaceTree(_x, _y, 3, true);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Parx.instance.PlaceMarker(_x, _y, true);
         }
 
         ToggleFrontPlate(true);

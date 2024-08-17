@@ -52,15 +52,19 @@ public class Parx : MonoBehaviour
         {
             int m = _grid[x,y] == v ? 1 : -1;
 
-            for ( int iX = 0; iX < s; iX++ ) {_grid[iX,y] += m; } // Mark Row
-            for ( int iY = 0; iY < s; iY++ ) {_grid[x,iY] += m; } // Mark Column
+            // for ( int iX = 0; iX < s; iX++ ) {_grid[iX,y] += m; } // Mark Row
+            // for ( int iY = 0; iY < s; iY++ ) {_grid[x,iY] += m; } // Mark Column
 
-            if ( x > 0   && y > 0  ) {_grid[x-1,y-1] += m; } // Top Left
-            if ( x < s-1 && y > 0  ) {_grid[x+1,y-1] += m; } // Top Right
-            if ( x > 0   && y < s-1) {_grid[x-1,y+1] += m; } // Bottom Left
-            if ( x < s-1 && y < s-1) {_grid[x+1,y+1] += m; } // Bottom Right
+            // if ( x > 0   && y > 0  ) {_grid[x-1,y-1] += m; } // Top Left
+            // if ( x < s-1 && y > 0  ) {_grid[x+1,y-1] += m; } // Top Right
+            // if ( x > 0   && y < s-1) {_grid[x-1,y+1] += m; } // Bottom Left
+            // if ( x < s-1 && y < s-1) {_grid[x+1,y+1] += m; } // Bottom Right
 
             _grid[x,y] = m == 1 ? 0 : v; // Mark Selection
+
+            if ( m == 1 ) 
+            CrossMark(x, y, false);
+            AutoMarkBoard();
 
             UpdateBorders();
             UpdateGridPresentation();
@@ -73,13 +77,57 @@ public class Parx : MonoBehaviour
 
             if ( addToUndo )
             {
-                
+                // TO DO - Implement UNDO 
             }
 
             return true;
         }
 
         return false;
+    }
+
+    public void PlaceMarker(int x, int y, bool addToUndo = false)
+    {
+        _grid[x,y] = _grid[x,y] == 0 ? -1 : _grid[x,y] == -1 ? 0 : _grid[x,y];
+
+        UpdateGridPresentation();
+
+        if ( addToUndo )
+        {
+            // TO DO - Implement UNDO 
+        }
+    }
+
+    public void AutoMarkBoard()
+    {
+        for ( int x = 0; x < s; x++ )
+        {
+            for ( int y = 0; y < s; y++ )
+            {
+                if ( _grid[x,y] > 0 )
+                {
+                    CrossMark(x, y, true);
+                }
+            }
+        }
+    }
+
+    public void CrossMark(int x, int y, bool toggle)
+    {
+        for ( int iX = 0; iX < s; iX++ ) {ForceToggleMarker(iX,y, toggle); } // Mark Row
+        for ( int iY = 0; iY < s; iY++ ) {ForceToggleMarker(x,iY, toggle); } // Mark Column
+
+        if ( x > 0   && y > 0  ) {ForceToggleMarker(x-1,y-1, toggle); } // Top Left
+        if ( x < s-1 && y > 0  ) {ForceToggleMarker(x+1,y-1, toggle); } // Top Right
+        if ( x > 0   && y < s-1) {ForceToggleMarker(x-1,y+1, toggle); } // Bottom Left
+        if ( x < s-1 && y < s-1) {ForceToggleMarker(x+1,y+1, toggle); } // Bottom Right
+    }
+
+    public void ForceToggleMarker(int x, int y, bool on, bool overrideTrees = false)
+    {
+        if ( _grid[x,y] > 0 && overrideTrees == false ) return;
+
+        _grid[x,y] = on ? -1 : 0;
     }
 
     private void UpdateBorders()
