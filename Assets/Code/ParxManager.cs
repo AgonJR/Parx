@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ParxManager : MonoBehaviour
 {
+    public static ParxManager instance;
+
     public bool ClearBoard = false;
     public bool RegenerateBoard = false;
     [Space]
@@ -11,6 +13,10 @@ public class ParxManager : MonoBehaviour
     
     public static string[] gridSolutions;
     
+    void Awake()
+    {
+        instance = this;
+    }
     
     void Start()
     {

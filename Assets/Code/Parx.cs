@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Parx : MonoBehaviour
@@ -65,7 +67,7 @@ public class Parx : MonoBehaviour
 
             if ( IsBoaredAllGreen() )
             {
-                instance.gridSize++;
+                // instance.gridSize++;
                 instance.RegenerateGrid();
             }
 
@@ -147,13 +149,120 @@ public class Parx : MonoBehaviour
     
     private void InitColors()
     {
-        string sol = ParxManager.gridSolutions[Random.Range(0, ParxManager.gridSolutions.Length)];
+        // Select a Random Grid Solution
+        ParxManager.instance.solutionNo = UnityEngine.Random.Range(0, ParxManager.gridSolutions.Length);
+        string sol = ParxManager.gridSolutions[ParxManager.instance.solutionNo];
 
+        // Set Solution Tile Colors
         for ( int x = 0; x < gridSize; x++ )
         {
             _clrs[x, sol[x]-'0'] = x+1;
         }
+
+        // Grow Solution Squares
+        int N = (gridSize * gridSize) - gridSize;
+        for ( int x = 0; x < gridSize; x++ )
+        {
+            int c = x + 1;
+            int y = sol[x] - '0';
+            int n = x == gridSize-1 ? N : UnityEngine.Random.Range(1, N/2);
+
+            GrowColors(x,y,c,n);
+
+            N -= n;
+        }
+
+        // Fix Missed Squares
+        int edgeCaseCheck = 0;
+        int edgeTimeOutDt = 0;
+        do
+        {
+            for ( int x = 0; x < s; x++ )
+            {
+                for ( int y = 0; y < s; y++ )
+                {
+                    if( _clrs[x, y] == 0 )
+                    {
+                        MatchNeighbourColour(x,y);
+                        edgeCaseCheck += _clrs[x, y] == 0 ? 1 : 0;
+                    }
+                }
+            }
+
+            edgeCaseCheck -= edgeTimeOutDt++;
+        } 
+        while (edgeCaseCheck > 0);
     }
+
+    private void GrowColors(int x, int y, int c, int n)
+    {
+        List<Tuple<int,int>> neighbours = GetColorlessNeighbours(x,y);
+        do
+        {
+            for ( int i = 0; i < neighbours.Count; i++ )
+            {
+                int nX = neighbours[i].Item1;
+                int nY = neighbours[i].Item2;
+
+                int roll = UnityEngine.Random.Range(0, 100);
+                if ( roll > 50 ) { _clrs[nX, nY] = c; n--; }
+            }
+
+            if ( n > 0 ) neighbours = GetColorlessNeighbours(x,y);
+        } 
+        while ( n > 0 && neighbours.Count > 0);
+        
+    }
+
+    private List<Tuple<int,int>> GetColorlessNeighbours(int x, int y)
+    {
+        List<Tuple<int,int>> neighbours = new List<Tuple<int, int>>();
+
+        int c = _clrs[x,y];
+        _clrs[x,y] *= -1; // To avoid infinite loop -<>- Reset at end
+
+        //    0   
+        // 3 x,y 1
+        //    2   
+
+        int[] Xi = {x, x+1, x, x-1};
+        int[] Yi = {y-1, y, y+1, y};
+
+        for ( int i = 0; i < 4; i++ )
+        {
+            if ( Xi[i] < 0         || Yi[i] < 0         ) continue;
+            if ( Xi[i] >= gridSize || Yi[i] >= gridSize ) continue;
+
+            if ( _clrs[Xi[i], Yi[i]] == 0 )
+            neighbours.Add(new Tuple<int, int>(Xi[i], Yi[i]));
+
+            if ( _clrs[Xi[i], Yi[i]] == c )
+            neighbours.AddRange(GetColorlessNeighbours(Xi[i], Yi[i]));
+        }
+
+        _clrs[x,y] = c;
+
+        return neighbours;
+    }
+
+    private void MatchNeighbourColour(int x, int y)
+    {
+        int[] Xi = {x, x+1, x, x-1};
+        int[] Yi = {y-1, y, y+1, y};
+
+        for ( int i = 0; i < 4; i++ )
+        {
+            if ( Xi[i] < 0         || Yi[i] < 0         ) continue;
+            if ( Xi[i] >= gridSize || Yi[i] >= gridSize ) continue;
+
+            if ( _clrs[Xi[i], Yi[i]] != 0 )
+            {
+                _clrs[x,y] = _clrs[Xi[i], Yi[i]];
+                break;
+            }
+        }
+    }
+
 
     private void PrintGrid()
     {
@@ -295,7 +404,7 @@ public class Parx : MonoBehaviour
 
         newBlock.transform.parent   = gridParent;
         newBlock.transform.position = spawnPosition;
-        newBlock.name               = "ParxBlock (" + (x+1) + " , " + (y+1) + ")";
+        newBlock.name               = "ParxBlock (" + x + " , " + y + ")";
 
         return newBlock.GetComponent<ParxBlock>();
     }

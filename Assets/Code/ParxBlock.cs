@@ -45,21 +45,11 @@ public class ParxBlock : MonoBehaviour
         if(clr>0)_renderer.material.color = colors[clr];
     }
 
-    private int clrIndx = 1;
     void OnMouseOver() 
     { 
         if (Input.GetMouseButtonDown(0))
         {
-            if ( Input.GetKey(KeyCode.LeftShift) )
-            {
-                _renderer.material.color = colors[clrIndx];
-                clrIndx++;
-                if ( clrIndx >= colors.Length ) clrIndx = 0;
-            }
-            else
-            {
-                Parx.instance.PlaceTree(_x, _y, 3);
-            }
+            Parx.instance.PlaceTree(_x, _y, 3);
         }
 
         ToggleFrontPlate(true);
