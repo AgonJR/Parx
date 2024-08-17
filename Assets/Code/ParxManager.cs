@@ -33,6 +33,7 @@ public class ParxManager : MonoBehaviour
 
         if ( Input.GetKeyDown(KeyCode.N) || RegenerateBoard)
         {
+            LoadGridSolutions(Parx.instance.gridSize);
             Parx.instance.RegenerateGrid();
             RegenerateBoard = false;
         }
