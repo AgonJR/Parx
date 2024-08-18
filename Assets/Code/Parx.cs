@@ -46,7 +46,7 @@ public class Parx : MonoBehaviour
 
     public bool PlaceTree(int x, int y, int v, bool addToUndo = false)
     {
-        if (_grid[x,y] == 0 || _grid[x,y] == v)
+        // if (_grid[x,y] == 0 || _grid[x,y] == v)
         {
             int m = _grid[x,y] == v ? 1 : -1;
 
@@ -72,7 +72,7 @@ public class Parx : MonoBehaviour
             return true;
         }
 
-        return false;
+        // return false;
     }
 
     public void PlaceMarker(int x, int y, bool addToUndo = false)
@@ -135,7 +135,8 @@ public class Parx : MonoBehaviour
             _bordr[s+y]     = tris > 0 ? 1 : 0; 
             _bordr[(s*2)+y] = tris > 0 ? 1 : 0;
 
-                 if ( tris >  0 ) { _brdr[s+y].Toggle(true ); _brdr[(s*2)+y].Toggle(true ); }
+                 if ( tris == 1 ) { _brdr[s+y].Toggle(true ); _brdr[(s*2)+y].Toggle(true ); }
+            else if ( tris >  1 ) { _brdr[s+y].Toggle(false); _brdr[(s*2)+y].Toggle(false); }
             else if ( dots <  s ) { _brdr[s+y].Extinguish() ; _brdr[(s*2)+y].Extinguish() ; }
             else if ( dots == s ) { _brdr[s+y].Toggle(false); _brdr[(s*2)+y].Toggle(false); }
         }
@@ -154,7 +155,8 @@ public class Parx : MonoBehaviour
             _bordr[x]       = tris > 0 ? 1 : 0; 
             _bordr[(s*3)+x] = tris > 0 ? 1 : 0;
 
-                 if ( tris >  0 ) { _brdr[x].Toggle(true ); _brdr[(s*3)+x].Toggle(true ); }
+                 if ( tris == 1 ) { _brdr[x].Toggle(true ); _brdr[(s*3)+x].Toggle(true ); }
+            else if ( tris >  1 ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
             else if ( dots <  s ) { _brdr[x].Extinguish() ; _brdr[(s*3)+x].Extinguish() ; }
             else if ( dots == s ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
         }
