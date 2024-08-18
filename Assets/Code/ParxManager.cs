@@ -10,6 +10,8 @@ public class ParxManager : MonoBehaviour
     [Space]
     public int solutionNo = 0;
     public bool placeSolution = false;
+    [Space]
+    public Button3D nextButton;
     
     public static string[] gridSolutions;
     
