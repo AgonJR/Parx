@@ -8,28 +8,35 @@ public class Button3D : MonoBehaviour
     public bool clickable = true;
 
     [Space]
+
     public Material matClickable;
     public Material matUnClickbl;
 
-    [SerializeField]
-    private MeshRenderer _renderRef;
-    [SerializeField]
-    private TMP_Text _textRef;
+    [Space]
 
-    
-    
+    public AudioClip sfxClickable;
+    public AudioClip sfxUnClickbl;
+
+    [Space]
+
+    private MeshRenderer _renderRef;
+    private TMP_Text     _textRef;
+    private AudioSource  _arRef;
+
+
     void Start()
     {
-        _renderRef = GetComponent<MeshRenderer>();
-        _textRef = GetComponentInChildren<TMP_Text>();
+        _renderRef  = GetComponent<MeshRenderer>();
+        _textRef    = GetComponentInChildren<TMP_Text>();
+        _arRef      = GetComponent<AudioSource>();
     }
-
 
     void OnMouseOver() 
     { 
-        if ( clickable && Input.GetMouseButtonDown(0) )
+        if ( Input.GetMouseButtonDown(0) )
         {
-            ClickEvent_NextButton();
+            _arRef.PlayOneShot(clickable ? sfxClickable : sfxUnClickbl);
+            if ( clickable ) ClickEvent_NextButton();
         }
 
         _textRef.color = clickable ? Color.green : Color.red;
