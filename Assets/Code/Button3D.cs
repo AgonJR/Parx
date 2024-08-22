@@ -6,6 +6,7 @@ public class Button3D : MonoBehaviour
 {
 
     public bool clickable = true;
+    public EventName Event;
 
     [Space]
 
@@ -23,6 +24,11 @@ public class Button3D : MonoBehaviour
     private TMP_Text     _textRef;
     private AudioSource  _arRef;
 
+    public enum EventName
+    {
+        Next,
+        Upgrade
+    }
 
     void Start()
     {
@@ -36,7 +42,15 @@ public class Button3D : MonoBehaviour
         if ( Input.GetMouseButtonDown(0) )
         {
             _arRef.PlayOneShot(clickable ? sfxClickable : sfxUnClickbl);
-            if ( clickable ) ClickEvent_NextButton();
+
+            if ( clickable ) 
+            {
+                switch(Event)
+                {
+                    case EventName.Next: ClickEvent_NextButton(); break;
+                    case EventName.Upgrade: ClickEvent_UpgradeButton(); break;
+                }
+            }
         }
 
         _textRef.color = clickable ? Color.green : Color.red;
@@ -60,5 +74,12 @@ public class Button3D : MonoBehaviour
     {
         Enable(false);
         Parx.instance.RegenerateGrid();
+    }
+
+    public void ClickEvent_UpgradeButton()
+    {
+        Enable(false);
+        Parx.instance.gridSize++;
+        ParxManager.instance.RegenerateBoard = true;
     }
 }
