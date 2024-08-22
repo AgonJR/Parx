@@ -17,6 +17,10 @@ public class Parx : MonoBehaviour
 
     [Space]
 
+    public bool autoDie = true;
+
+    [Space]
+
     public Transform gridParent;
     public Transform borderParent;
 
@@ -91,13 +95,16 @@ public class Parx : MonoBehaviour
 
     public void AutoMarkBoard()
     {
-        for ( int x = 0; x < s; x++ )
+        if ( autoDie )
         {
-            for ( int y = 0; y < s; y++ )
+            for ( int x = 0; x < s; x++ )
             {
-                if ( _grid[x,y] > 0 )
+                for ( int y = 0; y < s; y++ )
                 {
-                    CrossMark(x, y, true);
+                    if ( _grid[x,y] > 0 )
+                    {
+                        CrossMark(x, y, true);
+                    }
                 }
             }
         }
@@ -323,7 +330,7 @@ public class Parx : MonoBehaviour
         {
             for ( int y = 0; y < s; y++ )
             {
-                if( _grid[x, y] >= 3 )
+                if ( _grid[x, y] >= 3 )
                 {
                     bool tt = TouchingTrees(x,y);
 
