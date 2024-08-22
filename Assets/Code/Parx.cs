@@ -324,6 +324,24 @@ public class Parx : MonoBehaviour
         }
     }
 
+    // Number of Trees in a Colour Space
+    public int CountTreesAtColour(int c)
+    {
+        int count = 0;
+
+        for ( int x = 0; x < s; x++ )
+        {
+            for ( int y = 0; y < s; y++ )
+            {
+                if ( _clrs[x,y] == c && _grid[x,y] >= 3 ) { count++; }
+            }
+        }
+
+        return count;
+    }
+
+    // Detect Trees & Set To RED if they 
+    // Touch or Share a Colour Space
     public void ReviewMarkers()
     {
         for ( int x = 0; x < s; x++ )
@@ -333,6 +351,7 @@ public class Parx : MonoBehaviour
                 if ( _grid[x, y] >= 3 )
                 {
                     bool tt = TouchingTrees(x,y);
+                    tt = tt ? true : CountTreesAtColour(_clrs[x,y]) > 1;
 
                     _grid[x, y] = tt ? 4 : 3;
 
