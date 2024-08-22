@@ -63,6 +63,7 @@ public class Parx : MonoBehaviour
             ReviewMarkers();
             UpdateBorders();
             
+            ToggleGlows(_clrs[x,y]);
             UpdateGridPresentation();
 
             if ( IsBoardAllGreen() )
@@ -358,6 +359,36 @@ public class Parx : MonoBehaviour
                     _blox[x,y].ColourMarker(tt ? Color.red : Color.white);
                 }
             }
+        }
+    }
+
+    public void ToggleGlows(int c)
+    {
+        List<ParxBlock> sameColorBlox = new List<ParxBlock>();
+
+        int tris = 0;
+        int reds = 0;
+
+        for ( int x = 0; x < s; x++ )
+        {
+            for ( int y = 0; y < s; y++ )
+            {
+                if ( _clrs[x,y] == c ) 
+                { 
+                    sameColorBlox.Add(_blox[x,y]); 
+
+                    if ( _grid[x,y] == 3) { tris++; }
+                    if ( _grid[x,y] == 4) { reds++; }
+                }
+
+            }
+        }
+
+        bool toggle = tris == 1 && reds == 0;
+
+        foreach ( ParxBlock block in sameColorBlox )
+        {
+            block.ToggleEmission(toggle);
         }
     }
 

@@ -86,6 +86,9 @@ public class ParxBlock : MonoBehaviour
 
     public void ToggleEmission(bool tgl)
     {
+        if ( tgl ) { _renderer.material.EnableKeyword("_EMISSION"); }
+        else      { _renderer.material.DisableKeyword("_EMISSION"); }
+
         _renderer.material.SetColor("_EmissionColor", tgl ? emittClr : Color.black);
     }
 }
