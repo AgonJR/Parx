@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6343622052114555427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1540,12 +1540,12 @@ MonoBehaviour:
   matC2: {fileID: 2100000, guid: e4684a765ffa43d4caa4ec942f89f91d, type: 2}
   emittClr: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 1}
   colors:
-  - {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+  - {r: 0.30980393, g: 0.6862745, b: 0.30980393, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0.5990566, g: 1, b: 0.96069187, a: 1}
-  - {r: 0.4029093, g: 0, b: 0.5471698, a: 1}
+  - {r: 0.03529412, g: 0.50980395, b: 0.9098039, a: 1}
+  - {r: 0.6862745, g: 0.3529412, b: 0.85882354, a: 1}
+  - {r: 0.27058825, g: 0.27058825, b: 0.27058825, a: 1}
+  - {r: 0.9150943, g: 0.47593912, b: 0.07338022, a: 1}
   - {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   - {r: 0.9987322, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 0.9033842, a: 1}
@@ -1609,6 +1609,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
+    - target: {fileID: 33512415180916950, guid: 61132ddd6da125a409c777638560ce6e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300080, guid: 87b751928235ced49a4a5bee39a873cc, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

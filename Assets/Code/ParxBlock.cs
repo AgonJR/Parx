@@ -84,7 +84,7 @@ public class ParxBlock : MonoBehaviour
         frontPlate.SetActive(tgl);
     }
 
-    public void TogglerEmission(bool tgl)
+    public void ToggleEmission(bool tgl)
     {
         _renderer.material.SetColor("_EmissionColor", tgl ? emittClr : Color.black);
     }
