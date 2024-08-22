@@ -18,6 +18,9 @@ public class ParxBlock : MonoBehaviour
 
     private MeshRenderer _renderer;
 
+    private MeshRenderer _marX1;
+    private MeshRenderer _marX2;
+
     private int _x;
     private int _y;
 
@@ -30,13 +33,22 @@ public class ParxBlock : MonoBehaviour
     {
         markX.SetActive(mark > 0);
         markD.SetActive(mark < 0);
-
+        
         // _renderer.material.SetColor("_EmissionColor", mark != 0 ? emittClr : Color.black);
+    }
+
+    public void ColourMarker(Color c)
+    {
+        _marX1.material.color = c;
+        _marX2.material.color = c;
     }
 
     public void Init(int x, int y, int clr = 0)
     {
         _renderer = gameObject.GetComponentInChildren<MeshRenderer>();
+
+        _marX1 = markX.GetComponentsInChildren<MeshRenderer>()[0];
+        _marX2 = markX.GetComponentsInChildren<MeshRenderer>()[1];
 
         _x = x;
         _y = y;
@@ -70,5 +82,10 @@ public class ParxBlock : MonoBehaviour
     public void ToggleFrontPlate(bool tgl)
     {
         frontPlate.SetActive(tgl);
+    }
+
+    public void TogglerEmission(bool tgl)
+    {
+        _renderer.material.SetColor("_EmissionColor", tgl ? emittClr : Color.black);
     }
 }

@@ -48,18 +48,20 @@ public class Parx : MonoBehaviour
     {
         // if (_grid[x,y] == 0 || _grid[x,y] == v)
         {
-            int m = _grid[x,y] == v ? 1 : -1;
+            int m = _grid[x,y] >= 3 ? 1 : -1;
 
             _grid[x,y] = m == 1 ? 0 : v; // Mark Selection
 
             if ( m == 1 ) 
             CrossMark(x, y, false);
-            AutoMarkBoard();
 
+            AutoMarkBoard();
+            ReviewMarkers();
             UpdateBorders();
+            
             UpdateGridPresentation();
 
-            if ( IsBoaredAllGreen() )
+            if ( IsBoardAllGreen() )
             {
                 ParxManager.instance.nextButton.Enable(true);
             }
@@ -126,19 +128,22 @@ public class Parx : MonoBehaviour
         {
             int tris = 0;
             int dots = 0;
+            int reds = 0;
+
             for ( int x = 0; x < s; x++ )
             {
-                if ( _grid[x,y] > 0 ) tris++;
-                if ( _grid[x,y] < 0 ) dots++;
+                if ( _grid[x,y] == 3 ) tris++;
+                if ( _grid[x,y] == 4 ) reds++;
+                if ( _grid[x,y]  < 0 ) dots++;
             }
 
-            _bordr[s+y]     = tris > 0 ? 1 : 0; 
-            _bordr[(s*2)+y] = tris > 0 ? 1 : 0;
+            _bordr[s+y]     = (tris == 1 && reds == 0) ? 1 : 0; 
+            _bordr[(s*2)+y] = (tris == 1 && reds == 0) ? 1 : 0;
 
-                 if ( tris == 1 ) { _brdr[s+y].Toggle(true ); _brdr[(s*2)+y].Toggle(true ); }
-            else if ( tris >  1 ) { _brdr[s+y].Toggle(false); _brdr[(s*2)+y].Toggle(false); }
-            else if ( dots <  s ) { _brdr[s+y].Extinguish() ; _brdr[(s*2)+y].Extinguish() ; }
-            else if ( dots == s ) { _brdr[s+y].Toggle(false); _brdr[(s*2)+y].Toggle(false); }
+            int tgl = reds > 0 ? 9 : tris == 1 ? 1 : dots == s ? 9 : 0;
+
+            _brdr[s+y].Toggle(tgl); 
+            _brdr[(s*2)+y].Toggle(tgl);
         }
 
         // Check Columns
@@ -146,23 +151,26 @@ public class Parx : MonoBehaviour
         {
             int tris = 0;
             int dots = 0;
+            int reds = 0;
+
             for ( int y = 0; y < s; y++ )
             {
-                if ( _grid[x,y] > 0 ) tris++;
-                if ( _grid[x,y] < 0 ) dots++;
+                if ( _grid[x,y] == 3 ) tris++;
+                if ( _grid[x,y] == 4 ) reds++;
+                if ( _grid[x,y]  < 0 ) dots++;
             }
 
-            _bordr[x]       = tris > 0 ? 1 : 0; 
-            _bordr[(s*3)+x] = tris > 0 ? 1 : 0;
+            _bordr[x]       = (tris == 1 && reds == 0) ? 1 : 0; 
+            _bordr[(s*3)+x] = (tris == 1 && reds == 0) ? 1 : 0;
 
-                 if ( tris == 1 ) { _brdr[x].Toggle(true ); _brdr[(s*3)+x].Toggle(true ); }
-            else if ( tris >  1 ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
-            else if ( dots <  s ) { _brdr[x].Extinguish() ; _brdr[(s*3)+x].Extinguish() ; }
-            else if ( dots == s ) { _brdr[x].Toggle(false); _brdr[(s*3)+x].Toggle(false); }
+            int tgl = reds > 0 ? 9 : tris == 1 ? 1 : dots == s ? 9 : 0;
+
+            _brdr[x].Toggle(tgl); 
+            _brdr[(s*3)+x].Toggle(tgl);
         }
     }
 
-    private bool IsBoaredAllGreen()
+    private bool IsBoardAllGreen()
     {
         foreach ( int bulb in _bordr ) 
         { if ( bulb != 1 ) return false; }
@@ -271,10 +279,6 @@ public class Parx : MonoBehaviour
         int c = _clrs[x,y];
         _clrs[x,y] *= -1; // To avoid infinite loop -<>- Reset at end
 
-        //    0   
-        // 3 x,y 1
-        //    2   
-
         int[] Xi = {x, x+1, x, x-1};
         int[] Yi = {y-1, y, y+1, y};
 
@@ -311,6 +315,48 @@ public class Parx : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void ReviewMarkers()
+    {
+        for ( int x = 0; x < s; x++ )
+        {
+            for ( int y = 0; y < s; y++ )
+            {
+                if( _grid[x, y] >= 3 )
+                {
+                    bool tt = TouchingTrees(x,y);
+
+                    _grid[x, y] = tt ? 4 : 3;
+
+                    _blox[x,y].ColourMarker(tt ? Color.red : Color.white);
+                }
+            }
+        }
+    }
+
+    // Returns True if ANY Neighbour (Inc. Diagonal) is a tree
+    public bool TouchingTrees(int x, int y)
+    {
+        // 7  0  1
+        // 6 x,y 2
+        // 5  4  3
+
+        int[] Xi = {x, x+1, x+1, x+1, x, x-1, x-1, x-1};
+        int[] Yi = {y-1, y-1, y, y+1, y+1, y+1, y, y-1};
+
+        for ( int i = 0; i < 8; i++ )
+        {
+            if ( Xi[i] < 0         || Yi[i] < 0         ) continue;
+            if ( Xi[i] >= gridSize || Yi[i] >= gridSize ) continue;
+
+            if ( _grid[Xi[i], Yi[i]] >= 3 )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
@@ -375,7 +421,7 @@ public class Parx : MonoBehaviour
 
         for (int i = 0; i < _brdr.Length; i++ )
         {
-            _brdr[i].Toggle(false);
+            _brdr[i].Toggle(0);
         }
 
         UpdateGridPresentation();
@@ -497,7 +543,7 @@ public class Parx : MonoBehaviour
 
         ParxBorder bulbRef = newBulb.GetComponent<ParxBorder>();
     
-        bulbRef.Extinguish();
+        bulbRef.Toggle(0);
         return bulbRef;
     }
 

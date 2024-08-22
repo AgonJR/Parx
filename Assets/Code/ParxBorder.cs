@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ParxBorder : MonoBehaviour
@@ -8,13 +9,8 @@ public class ParxBorder : MonoBehaviour
     public Material matOff;
     public Material matOn ;
 
-    public void Toggle(bool o)
+    public void Toggle(int t)
     {
-        rendererRef.material = o ? matOn : matOff;
-    }
-
-    public void Extinguish()
-    {
-        rendererRef.material = matNut;
+        rendererRef.material = t == 1 ? matOn : t > 1 ? matOff : matNut;
     }
 }
