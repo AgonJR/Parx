@@ -19,6 +19,13 @@ public class Parx : MonoBehaviour
 
     public bool autoDie = true;
 
+    [Header("Audio")]
+    public AudioSource aSourceSFX;
+    [Space]
+    public AudioClip sfxClick;
+    public AudioClip sfxHover;
+    public AudioClip sfxMarkr;
+
     [Space]
 
     public Transform gridParent;
@@ -73,6 +80,8 @@ public class Parx : MonoBehaviour
 
             if ( addToUndo )
             {
+                aSourceSFX.PlayOneShot(sfxClick);
+
                 // TO DO - Implement UNDO 
             }
 
@@ -90,6 +99,8 @@ public class Parx : MonoBehaviour
 
         if ( addToUndo )
         {
+            aSourceSFX.PlayOneShot(sfxMarkr);
+            
             // TO DO - Implement UNDO 
         }
     }
