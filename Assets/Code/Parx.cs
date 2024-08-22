@@ -506,7 +506,7 @@ public class Parx : MonoBehaviour
         
         CameraController.instance.FrameGridToCamera();
 
-        PrintGrid();
+        // PrintGrid();
     }
 
     // PRESENTATION
