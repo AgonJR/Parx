@@ -61,7 +61,7 @@ public class ParxBlock : MonoBehaviour
     { 
         if (Input.GetMouseButtonDown(0))
         {
-            if ( Input.GetKey(KeyCode.LeftShift)) 
+            if ( Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) 
                  Parx.instance.PlaceMarker(_x, _y, true);
             else Parx.instance.PlaceTree(_x, _y, 3, true);
         }

@@ -56,7 +56,7 @@ public class Parx : MonoBehaviour
 
             _grid[x,y] = m == 1 ? 0 : v; // Mark Selection
 
-            if ( m == 1 ) 
+            if (m == 1 && autoDie) 
             CrossMark(x, y, false);
 
             AutoMarkBoard();
