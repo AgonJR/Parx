@@ -147,7 +147,7 @@ public class Parx : MonoBehaviour
             _bordr[s+y]     = (tris == 1 && reds == 0) ? 1 : 0; 
             _bordr[(s*2)+y] = (tris == 1 && reds == 0) ? 1 : 0;
 
-            int tgl = reds > 0 ? 9 : tris == 1 ? 1 : dots == s ? 9 : 0;
+            int tgl = reds > 0 ? 9 : tris == 1 ? 1 : dots == s ? 9 : tris > 1 ? 9 : 0;
 
             _brdr[s+y].Toggle(tgl); 
             _brdr[(s*2)+y].Toggle(tgl);
@@ -170,7 +170,7 @@ public class Parx : MonoBehaviour
             _bordr[x]       = (tris == 1 && reds == 0) ? 1 : 0; 
             _bordr[(s*3)+x] = (tris == 1 && reds == 0) ? 1 : 0;
 
-            int tgl = reds > 0 ? 9 : tris == 1 ? 1 : dots == s ? 9 : 0;
+            int tgl = reds > 0 ? 9 : tris == 1 ? 1 : dots == s ? 9 : tris > 1 ? 9 : 0;
 
             _brdr[x].Toggle(tgl); 
             _brdr[(s*3)+x].Toggle(tgl);
