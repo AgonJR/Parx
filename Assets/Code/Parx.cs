@@ -133,6 +133,22 @@ public class Parx : MonoBehaviour
         if ( x < s-1 && y > 0  ) {ForceToggleMarker(x+1,y-1, toggle); } // Top Right
         if ( x > 0   && y < s-1) {ForceToggleMarker(x-1,y+1, toggle); } // Bottom Left
         if ( x < s-1 && y < s-1) {ForceToggleMarker(x+1,y+1, toggle); } // Bottom Right
+
+        MarkColourSpace(_clrs[x,y], toggle);
+    }
+
+    public void MarkColourSpace(int c, bool toggle)
+    {
+        for ( int x = 0; x < s; x++ )
+        {
+            for ( int y = 0; y < s; y++ )
+            {
+                if ( _grid[x,y] <= 0 && _clrs[x,y] == c)
+                {
+                    ForceToggleMarker(x,y, toggle);
+                }
+            }
+        }
     }
 
     public void ForceToggleMarker(int x, int y, bool on, bool overrideTrees = false)
