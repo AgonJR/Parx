@@ -25,6 +25,7 @@ public class Parx : MonoBehaviour
     public AudioClip sfxClick;
     public AudioClip sfxHover;
     public AudioClip sfxMarkr;
+    public AudioClip sfxAlGrn;
 
     [Space]
 
@@ -75,6 +76,7 @@ public class Parx : MonoBehaviour
 
             if ( IsBoardAllGreen() )
             {
+                aSourceSFX.PlayOneShot(sfxAlGrn);
                 ParxManager.instance.nextButton.Enable(true);
             }
 
