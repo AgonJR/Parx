@@ -12,6 +12,7 @@ public class ParxManager : MonoBehaviour
     public bool placeSolution = false;
     [Space]
     public Button3D nextButton;
+    public Button3D updtButton;
     
     public static string[] gridSolutions;
     

@@ -191,6 +191,7 @@ MonoBehaviour:
   solutionNo: 0
   placeSolution: 0
   nextButton: {fileID: 792186012}
+  updtButton: {fileID: 2090457464}
 --- !u!4 &165404039
 Transform:
   m_ObjectHideFlags: 0
@@ -961,18 +962,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 320688974}
     m_Modifications:
-    - target: {fileID: 2643826510098664757, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
-      propertyPath: m_text
-      value: ' -'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643826510098664757, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7178081450275464372, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
-      propertyPath: matClickable
-      value: 
-      objectReference: {fileID: 2100000, guid: e8748682e4313c948a325528ad632c88, type: 2}
     - target: {fileID: 7211607479408753937, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
       propertyPath: m_Name
       value: 3D UI
@@ -1497,6 +1486,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 320688974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2090457464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7639948078581893400, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
+  m_PrefabInstance: {fileID: 1308035388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081727061c64a4a0b83e529d40ff14ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

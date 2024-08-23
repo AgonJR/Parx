@@ -32,6 +32,7 @@ public class Parx : MonoBehaviour
     public Transform gridParent;
     public Transform borderParent;
 
+    private int upCD = 3;
 
     private int s;
 
@@ -76,8 +77,11 @@ public class Parx : MonoBehaviour
 
             if ( IsBoardAllGreen() )
             {
+                upCD--;
                 aSourceSFX.PlayOneShot(sfxAlGrn);
                 ParxManager.instance.nextButton.Enable(true);
+                ParxManager.instance.updtButton.Enable(upCD <= 0);
+                ParxManager.instance.updtButton.SetUpgradeCD(upCD);
             }
 
             if ( addToUndo )
@@ -443,6 +447,28 @@ public class Parx : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void IncSize()
+    {
+        if ( gridSize == 9 )
+        {
+            Debug.LogError("[Parx] IncSize() - GridSize is at MAX (9) !");
+            return;
+        }
+
+        gridSize += 1;
+        
+        switch(gridSize)
+        {
+            case 5: upCD =  3; break;
+            case 6: upCD =  6; break;
+            case 7: upCD =  9; break;
+            case 8: upCD = 13; break;
+            case 9: upCD = 99; break;
+        }
+        
+        ParxManager.instance.updtButton.SetUpgradeCD(upCD);
     }
 
 

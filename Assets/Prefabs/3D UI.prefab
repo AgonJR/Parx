@@ -295,7 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickable: 0
   Event: 0
-  matClickable: {fileID: 2100000, guid: feeedad534b0a482d855587f56ff5c70, type: 2}
+  matClickable: {fileID: 2100000, guid: e8748682e4313c948a325528ad632c88, type: 2}
   matUnClickbl: {fileID: 2100000, guid: e8748682e4313c948a325528ad632c88, type: 2}
   sfxClickable: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
   sfxUnClickbl: {fileID: 8300000, guid: bdb08458eee8f714d87101d84fb4b99b, type: 3}
@@ -944,7 +944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickable: 0
   Event: 1
-  matClickable: {fileID: 2100000, guid: feeedad534b0a482d855587f56ff5c70, type: 2}
+  matClickable: {fileID: 2100000, guid: e8748682e4313c948a325528ad632c88, type: 2}
   matUnClickbl: {fileID: 2100000, guid: e8748682e4313c948a325528ad632c88, type: 2}
   sfxClickable: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
   sfxUnClickbl: {fileID: 8300000, guid: bdb08458eee8f714d87101d84fb4b99b, type: 3}
@@ -1143,7 +1143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u25BA"
+  m_text: ' -'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

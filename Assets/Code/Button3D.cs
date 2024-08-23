@@ -73,6 +73,10 @@ public class Button3D : MonoBehaviour
         if ( Event == EventName.Next ) _textRef.text = clickable ? "►" : " -";
     }
 
+    public void SetUpgradeCD(int cd)
+    {
+        if ( Event == EventName.Upgrade ) { _textRef.text = cd <= 0 ? " +\n++" : cd.ToString(); }
+    }
 
     public void ClickEvent_NextButton()
     {
@@ -83,7 +87,7 @@ public class Button3D : MonoBehaviour
     public void ClickEvent_UpgradeButton()
     {
         Enable(false);
-        Parx.instance.gridSize++;
+        Parx.instance.IncSize();
         ParxManager.instance.RegenerateBoard = true;
     }
 
