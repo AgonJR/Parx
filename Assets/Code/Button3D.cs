@@ -27,7 +27,8 @@ public class Button3D : MonoBehaviour
     public enum EventName
     {
         Next,
-        Upgrade
+        Upgrade,
+        AutoDie
     }
 
     void Start()
@@ -47,8 +48,9 @@ public class Button3D : MonoBehaviour
             {
                 switch(Event)
                 {
-                    case EventName.Next: ClickEvent_NextButton(); break;
+                    case EventName.Next:    ClickEvent_NextButton   (); break;
                     case EventName.Upgrade: ClickEvent_UpgradeButton(); break;
+                    case EventName.AutoDie: ClickEvent_ToggleAutoDie(); break;
                 }
             }
         }
@@ -81,5 +83,11 @@ public class Button3D : MonoBehaviour
         Enable(false);
         Parx.instance.gridSize++;
         ParxManager.instance.RegenerateBoard = true;
+    }
+
+    public void ClickEvent_ToggleAutoDie()
+    {
+        Parx.instance.autoDie = !Parx.instance.autoDie;
+        _textRef.text = Parx.instance.autoDie ? "[x]" : "[ ]";
     }
 }
