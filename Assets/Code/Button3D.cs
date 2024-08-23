@@ -69,6 +69,8 @@ public class Button3D : MonoBehaviour
         clickable = toggle;
 
         _renderRef.material = clickable ? matClickable : matUnClickbl;
+
+        if ( Event == EventName.Next ) _textRef.text = clickable ? "►" : " -";
     }
 
 

@@ -961,6 +961,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 320688974}
     m_Modifications:
+    - target: {fileID: 2643826510098664757, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
+      propertyPath: m_text
+      value: ' -'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643826510098664757, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178081450275464372, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
+      propertyPath: matClickable
+      value: 
+      objectReference: {fileID: 2100000, guid: e8748682e4313c948a325528ad632c88, type: 2}
     - target: {fileID: 7211607479408753937, guid: cdc7b4dfa04484788819927fb347d6f3, type: 3}
       propertyPath: m_Name
       value: 3D UI
