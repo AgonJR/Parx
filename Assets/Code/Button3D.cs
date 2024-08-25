@@ -75,7 +75,7 @@ public class Button3D : MonoBehaviour
 
     public void SetUpgradeCD(int cd)
     {
-        if ( Event == EventName.Upgrade ) { _textRef.text = cd <= 0 ? " +\n++" : cd.ToString(); }
+        if ( Event == EventName.Upgrade ) { _textRef.text = cd <= 0 ? "+" : cd.ToString(); }
     }
 
     public void ClickEvent_NextButton()

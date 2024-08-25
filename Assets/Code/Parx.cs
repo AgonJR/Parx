@@ -39,6 +39,8 @@ public class Parx : MonoBehaviour
     private int[,] _grid;
     private int[,] _clrs;
     private int[] _bordr;
+
+    private bool firstGreen = true;
     
     void Awake()
     {
@@ -77,11 +79,12 @@ public class Parx : MonoBehaviour
 
             if ( IsBoardAllGreen() )
             {
-                upCD--;
+                upCD -= firstGreen ? 1 : 0;
                 aSourceSFX.PlayOneShot(sfxAlGrn);
                 ParxManager.instance.nextButton.Enable(true);
                 ParxManager.instance.updtButton.Enable(upCD <= 0);
                 ParxManager.instance.updtButton.SetUpgradeCD(upCD);
+                firstGreen = false;
             }
 
             if ( addToUndo )
@@ -558,6 +561,7 @@ public class Parx : MonoBehaviour
         InitColors();
         InitGridBlox();
         InitGridBorder();
+        firstGreen = true;
         
         CameraController.instance.FrameGridToCamera();
 
