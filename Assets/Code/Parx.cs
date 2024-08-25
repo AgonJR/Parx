@@ -564,6 +564,7 @@ public class Parx : MonoBehaviour
         firstGreen = true;
         
         CameraController.instance.FrameGridToCamera();
+        ParxManager.instance.nextButton.Enable(false);
 
         // PrintGrid();
     }
