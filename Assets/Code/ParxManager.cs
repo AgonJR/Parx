@@ -58,7 +58,7 @@ public class ParxManager : MonoBehaviour
 
     private void LoadGridSolutions(int gridSize)
     {
-        string fileName = "gridSolutions_" + gridSize + ".txt";
+        string fileName = Application.streamingAssetsPath + "/gridSolutions_" + gridSize + ".txt";
         gridSolutions = File.ReadAllLines(fileName);
     }
 }
