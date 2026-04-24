@@ -192,6 +192,10 @@ MonoBehaviour:
   placeSolution: 0
   nextButton: {fileID: 792186012}
   updtButton: {fileID: 2090457464}
+  gridSolutions5: {fileID: 4900000, guid: c824ff3e9a119467db33d7b9e0d29bdd, type: 3}
+  gridSolutions6: {fileID: 4900000, guid: ad673aa81eb9e4ce293440cc5370af32, type: 3}
+  gridSolutions7: {fileID: 4900000, guid: 6f6015b584bdd46e89e92d20825edfca, type: 3}
+  gridSolutions8: {fileID: 4900000, guid: d08294a76d5df4cdc8f20d4af50cccc3, type: 3}
 --- !u!4 &165404039
 Transform:
   m_ObjectHideFlags: 0

@@ -13,6 +13,12 @@ public class ParxManager : MonoBehaviour
     [Space]
     public Button3D nextButton;
     public Button3D updtButton;
+
+    [Space]
+    public TextAsset gridSolutions5;
+    public TextAsset gridSolutions6;
+    public TextAsset gridSolutions7;
+    public TextAsset gridSolutions8;
     
     public static string[] gridSolutions;
     
@@ -58,7 +64,25 @@ public class ParxManager : MonoBehaviour
 
     private void LoadGridSolutions(int gridSize)
     {
-        string fileName = Application.streamingAssetsPath + "/gridSolutions_" + gridSize + ".txt";
-        gridSolutions = File.ReadAllLines(fileName);
+        #if UNITY_WEBGL
+        
+            string fileData = string.Empty;
+
+            switch(gridSize)
+            {
+                case 5: fileData = gridSolutions5.text; break;
+                case 6: fileData = gridSolutions6.text; break;
+                case 7: fileData = gridSolutions7.text; break;
+                case 8: fileData = gridSolutions8.text; break;
+            }
+
+            gridSolutions = fileData.Split("\n");
+
+        #else
+
+            string fileName = Application.streamingAssetsPath + "/gridSolutions_" + gridSize + ".txt";
+            gridSolutions = File.ReadAllLines(fileName);
+
+        #endif
     }
 }
