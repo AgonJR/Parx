@@ -1,10 +1,9 @@
 using UnityEngine;
-using TMPro;
 
 public class ParxBlock : MonoBehaviour
 {
     [Header("References")]
-    public TMP_Text textComponent;
+    public TextMesh textComponent;
     public GameObject  frontPlate;
     [Space]
     public GameObject markD;

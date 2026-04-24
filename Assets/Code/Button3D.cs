@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class Button3D : MonoBehaviour
@@ -21,7 +20,7 @@ public class Button3D : MonoBehaviour
     [Space]
 
     private MeshRenderer _renderRef;
-    private TMP_Text     _textRef;
+    private TextMesh     _textRef;
     private AudioSource  _arRef;
 
     public enum EventName
@@ -34,7 +33,7 @@ public class Button3D : MonoBehaviour
     void Start()
     {
         _renderRef  = GetComponent<MeshRenderer>();
-        _textRef    = GetComponentInChildren<TMP_Text>();
+        _textRef    = GetComponentInChildren<TextMesh>();
         _arRef      = GetComponent<AudioSource>();
     }
 
