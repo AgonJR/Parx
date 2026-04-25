@@ -27,7 +27,8 @@ public class Button3D : MonoBehaviour
     {
         Next,
         Upgrade,
-        AutoDie
+        AutoDie,
+        Toggle,
     }
 
     void Start()
@@ -50,6 +51,7 @@ public class Button3D : MonoBehaviour
                     case EventName.Next:    ClickEvent_NextButton   (); break;
                     case EventName.Upgrade: ClickEvent_UpgradeButton(); break;
                     case EventName.AutoDie: ClickEvent_ToggleAutoDie(); break;
+                    case EventName.Toggle:  ClickEvent_ToggleText   (); break;
                 }
             }
         }
@@ -94,5 +96,12 @@ public class Button3D : MonoBehaviour
     {
         Parx.instance.autoDie = !Parx.instance.autoDie;
         _textRef.text = Parx.instance.autoDie ? "[x]" : "[ ]";
+    }
+
+    private bool toggledOn = false;
+    public void ClickEvent_ToggleText()
+    {
+        toggledOn = !toggledOn;
+        _textRef.text = toggledOn ? "[x]" : "[o]";
     }
 }
