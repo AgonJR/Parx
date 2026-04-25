@@ -59,22 +59,16 @@ public class TextDetector : MonoBehaviour
             {
                 if (NameGame.Manager.UnlockElement(_currentInput))
                 {
-                    Debug.LogWarning($" Element [{_currentInput}] Unlocked! ");
-
-                    _currentInput = string.Empty;
-
                     _arRef.pitch = 1.0f;
                     _arRef.PlayOneShot(sfxFound);
+                    _currentInput = string.Empty;
                 }
             }
             else
             {
-                Debug.LogError($" Text [{_currentInput}] does not exist! ");
-
-                _currentInput = string.Empty;
-
                 _arRef.pitch = 1.0f;
                 _arRef.PlayOneShot(sfxError);
+                _currentInput = string.Empty;
             }
         }
 
