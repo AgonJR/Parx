@@ -670,6 +670,7 @@ GameObject:
   - component: {fileID: 320688974}
   - component: {fileID: 320688975}
   - component: {fileID: 320688976}
+  - component: {fileID: 320688977}
   m_Layer: 0
   m_Name: Game Board
   m_TagString: Untagged
@@ -804,6 +805,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextDetector
   OnScreenTextObj: {fileID: 575699677}
+  sfxTyping: {fileID: 8300000, guid: e5c0b5435124eee4a9bab0e4dc5c16b7, type: 3}
+  sfxFound: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
+  sfxError: {fileID: 8300000, guid: 4a09040e8e6916c4aae24278581e6b06, type: 3}
+--- !u!114 &320688977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320688973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9083b3224f40f4cccae1cbba34119a3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NameGame
+  _lockedElements: []
 --- !u!1 &326719950
 GameObject:
   m_ObjectHideFlags: 0

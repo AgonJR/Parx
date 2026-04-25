@@ -3,7 +3,22 @@ using UnityEngine;
 public class TextDetector : MonoBehaviour
 {
     public TextMesh OnScreenTextObj;
-    private string _currentInput = "";
+
+    [Space]
+
+    public AudioClip sfxTyping;
+    public AudioClip sfxFound;
+    public AudioClip sfxError;
+
+    [Space]
+
+    private string _currentInput = string.Empty;
+    private AudioSource _arRef;
+
+    void Start()
+    {
+        _arRef = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -27,28 +42,50 @@ public class TextDetector : MonoBehaviour
                 else
                 {
                     _currentInput += c;
+                    _arRef.pitch += _arRef.pitch <= 1.3 ? 0.05f : 0f;
+                    _arRef.PlayOneShot(sfxTyping);
                 }
             }
             
-            ProcessText(_currentInput);
+            ProcessText();
         }
     }
 
-    private void ProcessText(string playerInput)
+    private void ProcessText()
     {
-        string displayTxt = playerInput;
+        if ( _currentInput.Length > 2 ) // Let player type a couple of letters first
+        {
+            if (NameGame.Manager.CheckPrefix(_currentInput))
+            {
+                if (NameGame.Manager.UnlockElement(_currentInput))
+                {
+                    Debug.LogWarning($" Element [{_currentInput}] Unlocked! ");
+
+                    _currentInput = string.Empty;
+
+                    _arRef.pitch = 1.0f;
+                    _arRef.PlayOneShot(sfxFound);
+                }
+            }
+            else
+            {
+                Debug.LogError($" Text [{_currentInput}] does not exist! ");
+
+                _currentInput = string.Empty;
+
+                _arRef.pitch = 1.0f;
+                _arRef.PlayOneShot(sfxError);
+            }
+        }
+
+        string displayTxt = _currentInput;
 
         if (displayTxt.Length > 0) // Capitalize First Letter
         {
             displayTxt = char.ToUpper(displayTxt[0]).ToString() + displayTxt[1..];
         }
 
-        // TODO: Replace with blinking cursor (separate script?)
-        while(displayTxt.Length < 3)
-        {
-            displayTxt += '_';
-        }
-
         OnScreenTextObj.text = displayTxt;
     }
+    
 }
