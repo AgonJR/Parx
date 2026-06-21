@@ -23,6 +23,8 @@ public class Button3D : MonoBehaviour
     private TextMesh     _textRef;
     private AudioSource  _arRef;
 
+    private bool isNameGame = false;
+
     public enum EventName
     {
         Next,
@@ -31,11 +33,16 @@ public class Button3D : MonoBehaviour
         Toggle,
     }
 
-    void Start()
+    void Awake()
     {
         _renderRef  = GetComponent<MeshRenderer>();
         _textRef    = GetComponentInChildren<TextMesh>();
         _arRef      = GetComponent<AudioSource>();
+    }
+
+    void Start()
+    {
+        isNameGame = NameGame.Manager != null;
     }
 
     void OnMouseOver() 
@@ -101,7 +108,14 @@ public class Button3D : MonoBehaviour
     private bool toggledOn = false;
     public void ClickEvent_ToggleText()
     {
+        if (isNameGame) return;
+
         toggledOn = !toggledOn;
         _textRef.text = toggledOn ? "[x]" : "[o]";
+    }
+
+    public void SetText_External(string txt)
+    {
+        _textRef.text = txt;
     }
 }
