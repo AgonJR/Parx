@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NameGame : MonoBehaviour
@@ -9,8 +10,6 @@ public class NameGame : MonoBehaviour
 
     public TextAsset DataCSV;
     public Button3DElement[] Butts;
-
-    public List<string> _lockedElements;
     public List<ElementData> allElementsData;
 
     private void Awake()
@@ -24,23 +23,22 @@ public class NameGame : MonoBehaviour
         ReadData();
     }
 
-    private void Update()
-    {
-        
-    }
-
     public bool UnlockElement(string element)
     {
         string normalized = element.ToLower();
+        
+        ElementData el = allElementsData.FirstOrDefault(e => e.Names.Contains(normalized));
 
-        if (_lockedElements.Contains(normalized))
+        if ( el != null && !el.Unlocked)
         {
-            int index = _lockedElements.IndexOf(normalized);
+            int index = allElementsData.IndexOf(el);
 
             Butts[index].SetText_Symbol(allElementsData[index].Symbol);
             Butts[index].SetText_AtomicNumber((index+1).ToString());
-            
-            _lockedElements[index] = "Unlocked:" + _lockedElements[index];
+
+            el.Unlocked = true;
+
+            Debug.Log("UnlockElement(" + element + ") successful!");
 
             return true;
         }
@@ -52,12 +50,15 @@ public class NameGame : MonoBehaviour
     {
         string normalized = input.ToLower();
 
-        for (int i = 0; i < _lockedElements.Count; i++)
+        for (int i = 0; i < allElementsData.Count; i++)
         {
-            if (_lockedElements[i].StartsWith(normalized))
-                return true;
+            if (allElementsData[i].Names.Any(name => name.StartsWith(normalized)))
+            {
+                if (!allElementsData[i].Unlocked) return true;
+                return false; 
+            }
         }
-        
+
         return false;
     }
 
@@ -74,7 +75,6 @@ public class NameGame : MonoBehaviour
 
     private void ReadData()
     {
-        _lockedElements = new();
         allElementsData = new();
 
         string[] rows = DataCSV.text.Split('\n');
@@ -87,19 +87,28 @@ public class NameGame : MonoBehaviour
             {
                 Number = int.Parse(columns[0]), 
                 Symbol = columns[1],
-                Name = columns[2].ToLower()
+                Names = new List<string>(){columns[2].ToLower()}
             };
 
+            if (!columns[3].Equals(string.Empty))
+            {
+                string[] extraNames = columns[3].Split(':');
+                for (int x = 0; x < extraNames.Length; x++)
+                {
+                    data.Names.Add(extraNames[x].ToLower());
+                    Debug.Log("ReadData(), detected extra name: (" + i + ") = " + extraNames[x]);
+                }
+            }
+            
             allElementsData.Add(data);
-
-            _lockedElements.Add(data.Name);
         }
     }
 }
 
-public struct ElementData
+public class ElementData
 {
     public int Number;
     public string Symbol;
-    public string Name;
+    public List<string> Names;
+    public bool Unlocked = false;
 }
