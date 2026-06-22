@@ -47,11 +47,23 @@ public class NameGame : MonoBehaviour
     {
         string normalized = input.ToLower();
 
+        List<ElementData> alreadyUnlocked = new();
+
         for (int i = 0; i < allElementsData.Count; i++)
         {
             if (allElementsData[i].Names.Any(name => name.StartsWith(normalized)))
             {
                 if (!allElementsData[i].Unlocked) return true;
+                else alreadyUnlocked.Add(allElementsData[i]);
+            }
+        }
+
+        if ( alreadyUnlocked.Count > 0 )
+        {
+            foreach (ElementData el in alreadyUnlocked)
+            {
+                int index = allElementsData.IndexOf(el);
+                Butts[index].PingTextColor(Color.red, 1.5f);
             }
         }
 
