@@ -4,6 +4,7 @@ public class TextDetector : MonoBehaviour
 {
     public TextMesh OnScreenTextObj;
     public TextMesh OnScreenTextErr;
+    public TextMesh OnScreenTextCrr;
 
     [Space]
 
@@ -22,6 +23,7 @@ public class TextDetector : MonoBehaviour
 
     private string _currentInput = string.Empty;
     private Animator _errAnimator;
+    private Animator _crrAnimator;
     private AudioSource _arRef;
 
     private float _lastInputTime = 0.0f;
@@ -31,6 +33,7 @@ public class TextDetector : MonoBehaviour
     {
         _arRef = GetComponent<AudioSource>();
         _errAnimator = OnScreenTextErr.GetComponent<Animator>();
+        _crrAnimator = OnScreenTextCrr.GetComponent<Animator>();
         _currentInput = string.Empty;
     }
 
@@ -44,6 +47,7 @@ public class TextDetector : MonoBehaviour
         if ( Input.inputString.Equals(string.Empty) == false )
         {
             _errAnimator.gameObject.SetActive(false); // Clear previous error
+            _crrAnimator.gameObject.SetActive(false); // Clear previous answer
 
             if ( Time.time - _lastInputTime > 1.0f ) // Reset pitch between pauses
             { _arRef.pitch = 1.0f; } _lastInputTime = Time.time;
@@ -68,7 +72,7 @@ public class TextDetector : MonoBehaviour
                 else
                 {
                     _currentInput += c;
-                    _arRef.pitch += _arRef.pitch <= 1.3 ? 0.05f : 0f;
+                    _arRef.pitch += _arRef.pitch <= 1.3 ? 0.03f : 0f;
                     _arRef.PlayOneShot(sfxTyping);
                 }
             }
@@ -108,6 +112,11 @@ public class TextDetector : MonoBehaviour
                 {
                     _arRef.pitch = 1.0f;
                     _arRef.PlayOneShot(sfxFound);
+
+                    _crrAnimator.gameObject.SetActive(true);
+                    OnScreenTextCrr.text = CapitalizeFirstLetter(_currentInput);
+                    _crrAnimator.Play("InputCorrect", 0, 0f);
+
                     _currentInput = string.Empty;
                 }
             }

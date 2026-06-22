@@ -37,9 +37,6 @@ public class NameGame : MonoBehaviour
             Butts[index].SetText_AtomicNumber((index+1).ToString());
 
             el.Unlocked = true;
-
-            Debug.Log("UnlockElement(" + element + ") successful!");
-
             return true;
         }
         
@@ -55,7 +52,6 @@ public class NameGame : MonoBehaviour
             if (allElementsData[i].Names.Any(name => name.StartsWith(normalized)))
             {
                 if (!allElementsData[i].Unlocked) return true;
-                return false; 
             }
         }
 
@@ -94,10 +90,7 @@ public class NameGame : MonoBehaviour
             {
                 string[] extraNames = columns[3].Split(':');
                 for (int x = 0; x < extraNames.Length; x++)
-                {
-                    data.Names.Add(extraNames[x].ToLower());
-                    Debug.Log("ReadData(), detected extra name: (" + i + ") = " + extraNames[x]);
-                }
+                { data.Names.Add(extraNames[x].ToLower()); }
             }
             
             allElementsData.Add(data);
