@@ -8,6 +8,11 @@ public class Button3DElement : MonoBehaviour
     [Space]
 
     public AudioClip sfxClick;
+    public AudioClip sfxDblClick;
+
+    [Space]
+
+    public ElementData eData;
 
     [Space]
 
@@ -15,7 +20,9 @@ public class Button3DElement : MonoBehaviour
 
     private float _pingDurr = -1f;
     private float _pingLerp = -1f;
-    private Color _pingColor;
+    private Color _pingStartColor;
+    private Color _pingEndColour;
+    private float _lastClickTime;
 
     void Awake()
     {
@@ -27,36 +34,82 @@ public class Button3DElement : MonoBehaviour
         if (_pingLerp >= 0)
         {
             float pingElapsed = 1.0f - (_pingLerp / _pingDurr);
-            Color lerpedC = Color.Lerp(_pingColor, Color.white, pingElapsed);
+            Color lerpedC = Color.Lerp(_pingStartColor, _pingEndColour, pingElapsed);
 
             _pingLerp -= Time.deltaTime;
             SetTextColor(lerpedC);
+        }
+        else if (_pingEndColour == Color.clear && !eData.Unlocked)
+        {
+            SetText_AtomicNumber(string.Empty);
+            SetText_Symbol(string.Empty);
+        }
+    }
+
+    void OnMouseEnter()
+    {
+        if (eData.Unlocked) 
+        {
+            SetTextColor(Color.cyan);
+            _pingLerp = -1.0f;
         }
     }
 
     void OnMouseOver() 
     { 
+        DetectClicks();
+    }
+
+    void DetectClicks()
+    {
         if ( Input.GetMouseButtonDown(0) )
-        { _arRef.PlayOneShot(sfxClick); }
-        SetTextColor(Color.green);
-        _pingLerp = -1.0f;
+        { 
+            float timeSinceLastClick = Time.time - _lastClickTime;
+
+            if (timeSinceLastClick <= 0.2f)
+            {
+                if (!eData.Unlocked)
+                {
+                    _arRef.PlayOneShot(sfxDblClick);
+                    SetText_AtomicNumber(eData.Number.ToString());
+                    SetText_Symbol(eData.Symbol);
+                    SetTextColor(Color.white, true);
+                }
+            }
+
+            _lastClickTime = Time.time;
+            if (eData.Unlocked) 
+            {
+                _arRef.PlayOneShot(sfxClick); 
+                PingTextColor(Color.gold, Color.cyan, 0.5f);
+            }
+        }
     }
 
     void OnMouseExit()
     {
-        SetTextColor(Color.white);
+        if (eData.Unlocked)
+            PingTextColor(Color.cyan, Color.white, 0.5f);
+        else
+            PingTextColor(Color.white, Color.clear, 0.5f);
     }
 
-    public void SetTextColor(Color c)
+    public void SetTextColor(Color c, bool endLerp = false)
     {
         txtSymbol.color = c;
         txtAtomicNumber.color = c;
+
+        if (endLerp)
+        {
+            _pingEndColour = c; 
+            _pingLerp = -1.0f;
+        }
     }
 
-    public void PingTextColor(Color c, float duration)
+    public void PingTextColor(Color start, Color end, float duration)
     {
-        _pingColor = c;
-        SetTextColor(c);
+        _pingStartColor = start; 
+        _pingEndColour = end;
         _pingLerp = duration;
         _pingDurr = duration;
     }

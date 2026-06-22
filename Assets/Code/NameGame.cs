@@ -25,17 +25,14 @@ public class NameGame : MonoBehaviour
 
     public bool UnlockElement(string element)
     {
-        string normalized = element.ToLower();
+        ElementData el = allElementsData.FirstOrDefault(e => e.Names.Contains(element.ToLower()));
         
-        ElementData el = allElementsData.FirstOrDefault(e => e.Names.Contains(normalized));
-
         if ( el != null && !el.Unlocked)
         {
             int index = allElementsData.IndexOf(el);
-
-            Butts[index].SetText_Symbol(allElementsData[index].Symbol);
             Butts[index].SetText_AtomicNumber((index+1).ToString());
-
+            Butts[index].SetText_Symbol(allElementsData[index].Symbol);
+            Butts[index].PingTextColor(Color.green, Color.white, 1.3f);
             el.Unlocked = true;
             return true;
         }
@@ -63,7 +60,7 @@ public class NameGame : MonoBehaviour
             foreach (ElementData el in alreadyUnlocked)
             {
                 int index = allElementsData.IndexOf(el);
-                Butts[index].PingTextColor(Color.red, 1.5f);
+                Butts[index].PingTextColor(Color.red, Color.white, 1.5f);
             }
         }
 
@@ -106,10 +103,12 @@ public class NameGame : MonoBehaviour
             }
             
             allElementsData.Add(data);
+            Butts[i-1].eData = data;
         }
     }
 }
 
+[System.Serializable]
 public class ElementData
 {
     public int Number;
@@ -117,3 +116,5 @@ public class ElementData
     public List<string> Names;
     public bool Unlocked = false;
 }
+
+// TODO: Add board reset 
