@@ -62,6 +62,10 @@ public class Button3DElement : MonoBehaviour
             SetTextColor(Color.cyan);
             _pingLerp = -1.0f;
         }
+        else
+        {
+            SetTextColor(Color.white, true);
+        }
     }
 
     void OnMouseOver() 
@@ -79,18 +83,24 @@ public class Button3DElement : MonoBehaviour
             {
                 if (!eData.Unlocked)
                 {
-                    _arRef.PlayOneShot(sfxDblClick);
-                    SetText_AtomicNumber(eData.Number.ToString());
-                    SetText_Symbol(eData.Symbol);
-                    SetTextColor(Color.white, true);
+                    // TODO: Double Click = Display Hint 
                 }
             }
 
             _lastClickTime = Time.time;
+
             if (eData.Unlocked) 
             {
                 _arRef.PlayOneShot(sfxClick); 
                 PingTextColor(Color.gold, Color.cyan, 0.5f);
+            }
+            else if (!eData.Unlocked)
+            {
+                _arRef.pitch = 0.96f;
+                _arRef.PlayOneShot(sfxClick);
+                SetText_AtomicNumber(eData.Number.ToString());
+                SetText_Symbol(eData.Symbol);
+                SetTextColor(Color.white, true);
             }
         }
     }
