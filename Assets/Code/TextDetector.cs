@@ -121,13 +121,13 @@ public class TextDetector : MonoBehaviour
                 }
 
                 _inputLock = -1;
-                _errFade.FadeOut(0.25f);
+                _errFade.Fade(false, 0.25f);
             }
 
             if ( _inputLock <= 0 )
             {
                 _inputLock = -1;
-                _errFade.FadeOut(0.5f);
+                _errFade.Fade(false, 0.5f);
             }
 
             return false;
@@ -150,7 +150,7 @@ public class TextDetector : MonoBehaviour
                     _crrAnimator.gameObject.SetActive(true);
                     OnScreenTextCrr.text = CapitalizeFirstLetter(_currentInput);
                     _crrAnimator.Play("InputCorrect", 0, 0f);
-                    _crrFade.FadeOut(3.31f);
+                    _crrFade.Fade(false, 0.7f, 1.3f);
 
                     _currentInput = string.Empty;
                 }
@@ -161,7 +161,7 @@ public class TextDetector : MonoBehaviour
                 _arRef.PlayOneShot(sfxError);
                 _inputLock = ErrorLockDuration;
 
-                _errFade.FadeIn(0.03f); //Reset Color
+                _errFade.Fade(true, 0.03f); //Reset Color
                 _errAnimator.gameObject.SetActive(true);
                 OnScreenTextErr.text = CapitalizeFirstLetter(_currentInput);
                 _errAnimator.Play("InputError", 0, 0f);
