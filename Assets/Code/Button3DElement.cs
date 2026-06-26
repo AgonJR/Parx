@@ -4,6 +4,7 @@ public class Button3DElement : MonoBehaviour
 {
     public TextMesh txtSymbol;
     public TextMesh txtAtomicNumber;
+    public TextMesh txtNameSubtitle;
     public MeshRenderer rendererRef;
 
     [Space]
@@ -52,6 +53,7 @@ public class Button3DElement : MonoBehaviour
         {
             SetText_AtomicNumber(string.Empty);
             SetText_Symbol(string.Empty);
+            SetText_Name(string.Empty);
         }
     }
 
@@ -59,6 +61,7 @@ public class Button3DElement : MonoBehaviour
     {
         if (eData.Unlocked) 
         {
+            SetText_Name(eData.Names[0]);
             SetTextColor(Color.cyan);
             _pingLerp = -1.0f;
         }
@@ -91,7 +94,7 @@ public class Button3DElement : MonoBehaviour
 
             if (eData.Unlocked) 
             {
-                _arRef.PlayOneShot(sfxClick); 
+                _arRef.PlayOneShot(sfxClick);
                 PingTextColor(Color.gold, Color.cyan, 0.5f);
             }
             else if (!eData.Unlocked)
@@ -111,12 +114,15 @@ public class Button3DElement : MonoBehaviour
             PingTextColor(Color.cyan, Color.white, 0.5f);
         else
             PingTextColor(Color.white, Color.clear, 0.5f);
+
+        SetText_Name(string.Empty);
     }
 
     public void SetTextColor(Color c, bool endLerp = false)
     {
         txtSymbol.color = c;
         txtAtomicNumber.color = c;
+        txtNameSubtitle.color = c;
 
         if (endLerp)
         {
@@ -155,6 +161,11 @@ public class Button3DElement : MonoBehaviour
     public void SetText_AtomicNumber(string txt)
     {
         txtAtomicNumber.text = txt;
+    }
+
+    public void SetText_Name(string name)
+    {
+        txtNameSubtitle.text = name;
     }
 
     public void UpdateMaterial()
