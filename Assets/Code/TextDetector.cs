@@ -25,6 +25,8 @@ public class TextDetector : MonoBehaviour
     private Animator _errAnimator;
     private Animator _crrAnimator;
     private AudioSource _arRef;
+    private TextFade _errFade;
+    private TextFade _crrFade;
 
     private float _lastInputTime = 0.0f;
     private float _inputLock = -1.0f;
@@ -34,6 +36,8 @@ public class TextDetector : MonoBehaviour
         _arRef = GetComponent<AudioSource>();
         _errAnimator = OnScreenTextErr.GetComponent<Animator>();
         _crrAnimator = OnScreenTextCrr.GetComponent<Animator>();
+        _errFade =  OnScreenTextErr.GetComponent<TextFade>();
+        _crrFade =  OnScreenTextCrr.GetComponent<TextFade>();
         _currentInput = string.Empty;
     }
 
@@ -64,7 +68,7 @@ public class TextDetector : MonoBehaviour
                     else
                         return false;
                 }
-                else if (c == '\u001b') // Unicode for Escape
+                else if (c == '\u001b') // Unicode for ESC
                 {
                     // TODO: open a pause menu instead, with an option to reset
                     _arRef.PlayOneShot(sfxDelete);
@@ -72,7 +76,7 @@ public class TextDetector : MonoBehaviour
                 }
                 else if (c == '0') 
                 {
-                    // TODO: REMOVE THIS, it's for testing only
+                    // TODO: REMOVE for Release
                     _arRef.PlayOneShot(sfxFound);
                     NameGame.Manager.UnlockAll();
                 }
@@ -103,9 +107,27 @@ public class TextDetector : MonoBehaviour
 
             if (!Input.inputString.Equals(string.Empty))
             {
+                if (Input.inputString[0] == '\b') // Backspace
+                {
+                    // "Fixes" latest mistake if backspace pressed during lock
+                    _currentInput = OnScreenTextErr.text.Substring(0, OnScreenTextErr.text.Length - 1);
+                    OnScreenTextErr.text = string.Empty;
+                    _arRef.PlayOneShot(sfxDelete);
+                    UpdateDisplayText();
+                }
+                else
+                {
+                    _arRef.PlayOneShot(sfxLocked);
+                }
+
                 _inputLock = -1;
-                // TODO: error message fadeout here
-                _arRef.PlayOneShot(sfxLocked);
+                _errFade.FadeOut(0.25f);
+            }
+
+            if ( _inputLock <= 0 )
+            {
+                _inputLock = -1;
+                _errFade.FadeOut(0.5f);
             }
 
             return false;
@@ -128,6 +150,7 @@ public class TextDetector : MonoBehaviour
                     _crrAnimator.gameObject.SetActive(true);
                     OnScreenTextCrr.text = CapitalizeFirstLetter(_currentInput);
                     _crrAnimator.Play("InputCorrect", 0, 0f);
+                    _crrFade.FadeOut(3.31f);
 
                     _currentInput = string.Empty;
                 }
@@ -138,6 +161,7 @@ public class TextDetector : MonoBehaviour
                 _arRef.PlayOneShot(sfxError);
                 _inputLock = ErrorLockDuration;
 
+                _errFade.FadeIn(0.03f); //Reset Color
                 _errAnimator.gameObject.SetActive(true);
                 OnScreenTextErr.text = CapitalizeFirstLetter(_currentInput);
                 _errAnimator.Play("InputError", 0, 0f);
@@ -146,8 +170,12 @@ public class TextDetector : MonoBehaviour
             }
         }
 
-        string displayTxt = CapitalizeFirstLetter(_currentInput);
+        UpdateDisplayText();
+    }
 
+    private void UpdateDisplayText()
+    {
+        string displayTxt = CapitalizeFirstLetter(_currentInput);
         OnScreenTextObj.text = displayTxt;
     }
 

@@ -2947,6 +2947,7 @@ GameObject:
   - component: {fileID: 772171071}
   - component: {fileID: 772171069}
   - component: {fileID: 772171070}
+  - component: {fileID: 772171073}
   m_Layer: 0
   m_Name: 'Text: Correct'
   m_TagString: Untagged
@@ -3066,6 +3067,18 @@ RectTransform:
   m_AnchoredPosition: {x: -8.4134445, y: 0}
   m_SizeDelta: {x: 19.6, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &772171073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772171068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55fdf30bbcb6433687a7dfc0587ca0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextFade
 --- !u!1001 &777423470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7086,6 +7099,7 @@ GameObject:
   - component: {fileID: 1694531867}
   - component: {fileID: 1694531868}
   - component: {fileID: 1694531866}
+  - component: {fileID: 1694531869}
   m_Layer: 0
   m_Name: 'Text: Erroneous'
   m_TagString: Untagged
@@ -7205,6 +7219,18 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190149
+--- !u!114 &1694531869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694531864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55fdf30bbcb6433687a7dfc0587ca0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextFade
 --- !u!1001 &1694610809
 PrefabInstance:
   m_ObjectHideFlags: 0
