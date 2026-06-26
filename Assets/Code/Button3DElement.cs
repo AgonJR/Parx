@@ -61,7 +61,7 @@ public class Button3DElement : MonoBehaviour
     {
         if (eData.Unlocked) 
         {
-            SetText_Name(eData.Names[0]);
+            SetText_Name(eData.DisplayName);
             SetTextColor(Color.cyan);
             _pingLerp = -1.0f;
         }
@@ -94,8 +94,10 @@ public class Button3DElement : MonoBehaviour
 
             if (eData.Unlocked) 
             {
-                _arRef.PlayOneShot(sfxClick);
+                eData.DisplayNameIndex = (eData.DisplayNameIndex + 1) % eData.Names.Count;
                 PingTextColor(Color.gold, Color.cyan, 0.5f);
+                SetText_Name(eData.DisplayName);
+                _arRef.PlayOneShot(sfxClick);
             }
             else if (!eData.Unlocked)
             {
@@ -165,7 +167,7 @@ public class Button3DElement : MonoBehaviour
 
     public void SetText_Name(string name)
     {
-        txtNameSubtitle.text = name;
+        txtNameSubtitle.text = TextDetector.CapitalizeFirstLetter(name);
     }
 
     public void UpdateMaterial()

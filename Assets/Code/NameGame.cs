@@ -125,7 +125,8 @@ public class NameGame : MonoBehaviour
 
         for (int i = 0; i < Butts.Length; i++)
         {
-            Butts[i].UpdateMaterial();
+            Butts[i].UpdateMaterial(); 
+            Butts[i].SetText_Name(string.Empty);
             Butts[i].SetText_Symbol(string.Empty);
             Butts[i].SetText_AtomicNumber(string.Empty);
         }
@@ -139,6 +140,6 @@ public class ElementData
     public string Symbol;
     public List<string> Names;
     public bool Unlocked = false;
+    public int DisplayNameIndex = 0;
+    public string DisplayName => Names[DisplayNameIndex];
 }
-
-// TODO: Add board reset 

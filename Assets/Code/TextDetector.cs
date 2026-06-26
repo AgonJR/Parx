@@ -179,10 +179,9 @@ public class TextDetector : MonoBehaviour
         OnScreenTextObj.text = displayTxt;
     }
 
-    private string CapitalizeFirstLetter(string txt)
+    public static string CapitalizeFirstLetter(string txt)
     {
         if (txt.Length > 0) { txt = char.ToUpper(txt[0]).ToString() + txt[1..]; }
         return txt;
     }
-
 }
