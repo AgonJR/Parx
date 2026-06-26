@@ -40,6 +40,14 @@ public class NameGame : MonoBehaviour
         return false;
     }
 
+    public void UnlockAll()
+    {
+        foreach (ElementData el in allElementsData)
+        {
+            UnlockElement(el.Names.FirstOrDefault());
+        }
+    }
+
     public bool CheckPrefix(string input)
     {
         string normalized = input.ToLower();
@@ -104,6 +112,20 @@ public class NameGame : MonoBehaviour
             
             allElementsData.Add(data);
             Butts[i-1].eData = data;
+        }
+    }
+
+    public void Reset()
+    {
+        foreach (ElementData el in allElementsData)
+        {
+            el.Unlocked = false;
+        }
+
+        for (int i = 0; i < Butts.Length; i++)
+        {
+            Butts[i].SetText_Symbol(string.Empty);
+            Butts[i].SetText_AtomicNumber(string.Empty);
         }
     }
 }

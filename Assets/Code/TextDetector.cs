@@ -64,6 +64,18 @@ public class TextDetector : MonoBehaviour
                     else
                         return false;
                 }
+                else if (c == '\u001b') // Unicode for Escape
+                {
+                    // TODO: open a pause menu instead, with an option to reset
+                    _arRef.PlayOneShot(sfxDelete);
+                    NameGame.Manager.Reset();
+                }
+                else if (c == '0') 
+                {
+                    // TODO: REMOVE THIS, it's for testing only
+                    _arRef.PlayOneShot(sfxFound);
+                    NameGame.Manager.UnlockAll();
+                }
                 else if (!char.IsLetter(c))
                 {
                     _arRef.PlayOneShot(sfxBadIn);
@@ -72,8 +84,8 @@ public class TextDetector : MonoBehaviour
                 else
                 {
                     _currentInput += c;
-                    _arRef.pitch += _arRef.pitch <= 1.3 ? 0.03f : 0f;
-                    _arRef.PlayOneShot(sfxTyping);
+                    // _arRef.pitch += _arRef.pitch <= 1.3 ? 0.03f : 0f;
+                    // _arRef.PlayOneShot(sfxTyping);
                 }
             }
             
