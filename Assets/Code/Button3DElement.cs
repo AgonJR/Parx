@@ -4,6 +4,7 @@ public class Button3DElement : MonoBehaviour
 {
     public TextMesh txtSymbol;
     public TextMesh txtAtomicNumber;
+    public MeshRenderer rendererRef;
 
     [Space]
 
@@ -32,9 +33,9 @@ public class Button3DElement : MonoBehaviour
 
     void Awake()
     {
-        _arRef = GetComponent<AudioSource>();
-        _mshRdr = GetComponent<MeshRenderer>();
+        _mshRdr = rendererRef;
         _matDefault = _mshRdr.material;
+        _arRef = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
