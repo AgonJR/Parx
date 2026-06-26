@@ -64,7 +64,7 @@ public class Button3DElement : MonoBehaviour
         }
         else
         {
-            SetTextColor(Color.white, true);
+            PingTextColor(Color.white, 0.13f);
         }
     }
 
@@ -128,6 +128,20 @@ public class Button3DElement : MonoBehaviour
     public void PingTextColor(Color start, Color end, float duration)
     {
         _pingStartColor = start; 
+        _pingEndColour = end;
+        _pingLerp = duration;
+        _pingDurr = duration;
+    }
+
+
+    public void PingTextColor(Color end, float duration)
+    {
+        if (_pingLerp >= 0) // Changing mid-lerp
+        {
+            float pingElapsed = 1.0f - (_pingLerp / _pingDurr);
+            _pingStartColor = Color.Lerp(_pingStartColor, _pingEndColour, pingElapsed); 
+        }
+
         _pingEndColour = end;
         _pingLerp = duration;
         _pingDurr = duration;
