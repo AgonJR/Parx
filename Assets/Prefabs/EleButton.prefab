@@ -445,6 +445,7 @@ MonoBehaviour:
   txtAtomicNumber: {fileID: 676627161953903574}
   sfxClick: {fileID: 8300000, guid: 632b1c41f6a368540970d173af4f782f, type: 3}
   sfxDblClick: {fileID: 8300000, guid: 4e002e449fed29440b6a89814af2e231, type: 3}
+  matUnlocked: {fileID: 2100000, guid: 734ef2024f7314048bf522f3bf187048, type: 2}
   eData:
     Number: 0
     Symbol: 

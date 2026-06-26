@@ -12,6 +12,10 @@ public class Button3DElement : MonoBehaviour
 
     [Space]
 
+    public Material matUnlocked;
+
+    [Space]
+
     public ElementData eData;
 
     [Space]
@@ -23,10 +27,14 @@ public class Button3DElement : MonoBehaviour
     private Color _pingStartColor;
     private Color _pingEndColour;
     private float _lastClickTime;
+    private Material _matDefault;
+    private MeshRenderer _mshRdr;
 
     void Awake()
     {
         _arRef = GetComponent<AudioSource>();
+        _mshRdr = GetComponent<MeshRenderer>();
+        _matDefault = _mshRdr.material;
     }
 
     void FixedUpdate()
@@ -122,5 +130,10 @@ public class Button3DElement : MonoBehaviour
     public void SetText_AtomicNumber(string txt)
     {
         txtAtomicNumber.text = txt;
+    }
+
+    public void UpdateMaterial()
+    {
+        _mshRdr.material = eData.Unlocked ? matUnlocked : _matDefault;
     }
 }

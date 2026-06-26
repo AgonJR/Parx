@@ -29,11 +29,12 @@ public class NameGame : MonoBehaviour
         
         if ( el != null && !el.Unlocked)
         {
+            el.Unlocked = true;
             int index = allElementsData.IndexOf(el);
             Butts[index].SetText_AtomicNumber((index+1).ToString());
             Butts[index].SetText_Symbol(allElementsData[index].Symbol);
             Butts[index].PingTextColor(Color.green, Color.white, 1.3f);
-            el.Unlocked = true;
+            Butts[index].UpdateMaterial();
             return true;
         }
         
@@ -124,6 +125,7 @@ public class NameGame : MonoBehaviour
 
         for (int i = 0; i < Butts.Length; i++)
         {
+            Butts[i].UpdateMaterial();
             Butts[i].SetText_Symbol(string.Empty);
             Butts[i].SetText_AtomicNumber(string.Empty);
         }
