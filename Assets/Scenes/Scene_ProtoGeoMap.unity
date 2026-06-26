@@ -537,6 +537,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1462580516}
     m_Modifications:
+    - target: {fileID: 701804365005942606, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: matUnlocked
+      value: 
+      objectReference: {fileID: 2100000, guid: ee9d33eea56a14679a7d5d411abf59da, type: 2}
     - target: {fileID: 1009272002024257075, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -580,6 +584,10 @@ PrefabInstance:
     - target: {fileID: 5715754549824195290, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_Name
       value: EleButton (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715754549824195290, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -723,6 +731,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1490613956}
     m_Modifications:
+    - target: {fileID: 701804365005942606, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: matUnlocked
+      value: 
+      objectReference: {fileID: 2100000, guid: ee9d33eea56a14679a7d5d411abf59da, type: 2}
     - target: {fileID: 1009272002024257075, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -2649,6 +2661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EleButton (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5715754549824195290, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2748,7 +2764,7 @@ Transform:
   m_GameObject: {fileID: 599993607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.8, y: -0.1, z: -5}
+  m_LocalPosition: {x: -6.8, y: -0.1, z: -5.07}
   m_LocalScale: {x: 3.3, y: 0.1, z: 1.21}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3544,6 +3560,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 898190040}
     m_Modifications:
+    - target: {fileID: 701804365005942606, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: matUnlocked
+      value: 
+      objectReference: {fileID: 2100000, guid: ee9d33eea56a14679a7d5d411abf59da, type: 2}
     - target: {fileID: 1009272002024257075, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -4364,6 +4384,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 237438855}
     m_Modifications:
+    - target: {fileID: 701804365005942606, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: matUnlocked
+      value: 
+      objectReference: {fileID: 2100000, guid: ee9d33eea56a14679a7d5d411abf59da, type: 2}
     - target: {fileID: 1009272002024257075, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -5319,6 +5343,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1624707682}
     m_Modifications:
+    - target: {fileID: 701804365005942606, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: matUnlocked
+      value: 
+      objectReference: {fileID: 2100000, guid: ee9d33eea56a14679a7d5d411abf59da, type: 2}
     - target: {fileID: 1009272002024257075, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -7995,6 +8023,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 137724593}
     m_Modifications:
+    - target: {fileID: 701804365005942606, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: matUnlocked
+      value: 
+      objectReference: {fileID: 2100000, guid: ee9d33eea56a14679a7d5d411abf59da, type: 2}
     - target: {fileID: 1009272002024257075, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -8313,6 +8345,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 100549892}
     m_Modifications:
+    - target: {fileID: 701804365005942606, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
+      propertyPath: matUnlocked
+      value: 
+      objectReference: {fileID: 2100000, guid: ee9d33eea56a14679a7d5d411abf59da, type: 2}
     - target: {fileID: 1009272002024257075, guid: 9fd4e7629fa1f4db897da1cc36d7a9d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
