@@ -48,7 +48,7 @@ public class Button3DElement : MonoBehaviour
 
         _colorBeforeZoom = matUnlocked.color;
         _colorAfterZoom = _colorBeforeZoom; 
-        _colorAfterZoom.a = 1;
+        _colorAfterZoom.a = 0.9631f;
     }
 
     void FixedUpdate()
@@ -145,7 +145,7 @@ public class Button3DElement : MonoBehaviour
             if (eData.Unlocked) 
             {
                 eData.DisplayNameIndex = (eData.DisplayNameIndex + 1) % eData.Names.Count;
-                PingTextColor(Color.gold, Color.cyan, 0.5f);
+                PingTextColor(eData.Names.Count > 1 ? Color.gold : Color.whiteSmoke, Color.cyan, 0.5f);
                 SetText_Name(eData.DisplayName);
                 _arRef.PlayOneShot(sfxClick);
             }
@@ -249,5 +249,15 @@ public class Button3DElement : MonoBehaviour
         _zoomUp = up;
         _zoomLerp = duration;
         _zoomLerpDuration = duration;
+        rendererRef.shadowCastingMode = up ? UnityEngine.Rendering.ShadowCastingMode.On 
+                                           : UnityEngine.Rendering.ShadowCastingMode.Off;
+    }
+
+    public void ResetZoom()
+    {
+        _zoomLerp = -1f;
+        _zoomLerpDuration = 1f;
+        rendererRef.transform.localScale = _scaleAtStart;
+        rendererRef.transform.localPosition = _posAtStart;
     }
 }

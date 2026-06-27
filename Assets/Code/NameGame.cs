@@ -125,6 +125,7 @@ public class NameGame : MonoBehaviour
 
         for (int i = 0; i < Butts.Length; i++)
         {
+            Butts[i].ResetZoom(); 
             Butts[i].UpdateMaterial(); 
             Butts[i].SetText_Name(string.Empty);
             Butts[i].SetText_Symbol(string.Empty);
