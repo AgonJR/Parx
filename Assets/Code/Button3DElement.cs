@@ -37,9 +37,27 @@ public class Button3DElement : MonoBehaviour
         _mshRdr = rendererRef;
         _matDefault = _mshRdr.material;
         _arRef = GetComponent<AudioSource>();
+
+        // Zoom Data
+
+        _scaleAtStart = rendererRef.transform.localScale;
+        _scaleAtZoom = _scaleAtStart * 1.39f;
+
+        _posAtStart = rendererRef.transform.localPosition;
+        _posAtZoom = new Vector3(_posAtStart.x, _posAtStart.y + 3.1f, _posAtStart.z);
+
+        _colorBeforeZoom = matUnlocked.color;
+        _colorAfterZoom = _colorBeforeZoom; 
+        _colorAfterZoom.a = 1;
     }
 
     void FixedUpdate()
+    {
+        UpdateTextColor();
+        UpdateZoom();
+    }
+
+    private void UpdateTextColor()
     {
         if (_pingLerp >= 0)
         {
@@ -57,6 +75,37 @@ public class Button3DElement : MonoBehaviour
         }
     }
 
+    private void UpdateZoom()
+    {
+        if (_zoomLerp >= 0)
+        {
+            float elapsed = 1.0f - (_zoomLerp / _zoomLerpDuration);
+
+            Color lerpedColor;
+            Vector3 lerpedScl;
+            Vector3 lerpedPos;
+
+            if (_zoomUp)
+            {
+                lerpedColor = Color.Lerp(_colorBeforeZoom, _colorAfterZoom, elapsed);
+                lerpedScl = Vector3.Lerp(_scaleAtStart, _scaleAtZoom, elapsed);
+                lerpedPos = Vector3.Lerp(_posAtStart, _posAtZoom, elapsed);
+            }
+            else
+            {
+                lerpedColor = Color.Lerp(_colorAfterZoom, _colorBeforeZoom, elapsed);
+                lerpedScl = Vector3.Lerp(_scaleAtZoom, _scaleAtStart, elapsed);
+                lerpedPos = Vector3.Lerp(_posAtZoom, _posAtStart, elapsed);
+            }
+
+            rendererRef.transform.localScale = lerpedScl;
+            rendererRef.transform.localPosition = lerpedPos;
+            rendererRef.material.color = lerpedColor;
+
+            _zoomLerp -= Time.deltaTime;
+        }
+    }
+
     void OnMouseEnter()
     {
         if (eData.Unlocked) 
@@ -64,6 +113,7 @@ public class Button3DElement : MonoBehaviour
             SetText_Name(eData.DisplayName);
             SetTextColor(Color.cyan);
             _pingLerp = -1.0f;
+            Zoom(true);
         }
         else
         {
@@ -113,9 +163,14 @@ public class Button3DElement : MonoBehaviour
     void OnMouseExit()
     {
         if (eData.Unlocked)
+        {
             PingTextColor(Color.cyan, Color.white, 0.5f);
+            Zoom(false);
+        }
         else
+        {
             PingTextColor(Color.white, Color.clear, 0.5f);
+        }
 
         SetText_Name(string.Empty);
     }
@@ -173,5 +228,26 @@ public class Button3DElement : MonoBehaviour
     public void UpdateMaterial()
     {
         _mshRdr.material = eData.Unlocked ? matUnlocked : _matDefault;
+    }
+
+    // Zoom,
+    // - increases tile size, ascends above others
+    // - material made opaque
+    
+    private bool _zoomUp;
+    private float _zoomLerp = -1f;
+    private float _zoomLerpDuration = 1f;
+    private Vector3 _scaleAtStart = Vector3.zero;
+    private Vector3 _scaleAtZoom = Vector3.zero;
+    private Vector3 _posAtStart = Vector3.zero;
+    private Vector3 _posAtZoom = Vector3.zero;
+    private Color _colorBeforeZoom;
+    private Color _colorAfterZoom;
+
+    private void Zoom(bool up, float duration = 0.13f)
+    {
+        _zoomUp = up;
+        _zoomLerp = duration;
+        _zoomLerpDuration = duration;
     }
 }
