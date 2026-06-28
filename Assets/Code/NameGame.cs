@@ -10,6 +10,7 @@ public class NameGame : MonoBehaviour
     public static NameGame Manager;
 
     public TextAsset DataCSV;
+    public TextAsset HintsCSV;
     public Button3DElement[] Butts;
     public List<ElementData> allElementsData;
     public int TotalUnlocked => allElementsData.Count(el => el.Unlocked);
@@ -22,6 +23,11 @@ public class NameGame : MonoBehaviour
 
     [Space]
 
+    public TextMesh HintTextbox;
+    public Animator hintAnimator;
+
+    [Space]
+
     public MeshRenderer musicUIToggle;
     public MeshRenderer sfxUIToggle;
     public TextMesh ProgeressCount;
@@ -29,6 +35,10 @@ public class NameGame : MonoBehaviour
     public Material matToggleOff;
     public Material matToggleOn;
     public AudioSource asMusic;
+
+    [Space]
+
+    public bool HintDisplayed = false;
     public bool Music = true;
     public bool SFX = true;
 
@@ -40,8 +50,10 @@ public class NameGame : MonoBehaviour
     private void Start()
     {
         CollectButts();
-        ReadData();
+        ReadElements();
+        ReadHints();
         LoadSave();
+        HideHint();
     }
 
     public bool UnlockElement(string element, bool saveGame = true)
@@ -110,7 +122,7 @@ public class NameGame : MonoBehaviour
         }
     }
 
-    private void ReadData()
+    private void ReadElements()
     {
         allElementsData = new();
 
@@ -139,6 +151,25 @@ public class NameGame : MonoBehaviour
         }
     }
 
+    private void ReadHints()
+    {
+        string[] rows = HintsCSV.text.Split('\n');
+
+        for (int i = 0; i < (rows.Length / 4); i++) 
+        {
+            int offset = i * 4;
+            int elementIndex = int.Parse(rows[offset]) - 1;
+
+            string hinText = rows[offset+1] + "\n" 
+                           + rows[offset+2] + "\n" 
+                           + rows[offset+3];
+
+            allElementsData[elementIndex].Hint = hinText;
+
+            // Debug.Log("Hint [ " + allElementsData[elementIndex].Names[0] + " ] : " + hinText);
+        }
+    }
+
     public void Reset()
     {
         foreach (ElementData el in allElementsData)
@@ -156,6 +187,25 @@ public class NameGame : MonoBehaviour
         }
 
         TextComp.ResetInput();
+    }
+
+    public static void ShowHint(string hint)
+    {
+        Manager.HintTextbox.text = hint;
+
+        if(!Manager.HintDisplayed) 
+            Manager.hintAnimator.Play("HintEnter");
+
+        Manager.HintDisplayed = true;
+    }
+
+    public static void HideHint()
+    {
+        if(Manager.HintDisplayed)
+        {
+            Manager.hintAnimator.Play("HintExit");
+            Manager.HintDisplayed = false;
+        }
     }
 
     public static void PauseGame(bool pause)
@@ -226,6 +276,7 @@ public class NameGame : MonoBehaviour
 public class ElementData
 {
     public int Number;
+    public string Hint;
     public string Symbol;
     public List<string> Names;
     public bool Unlocked = false;

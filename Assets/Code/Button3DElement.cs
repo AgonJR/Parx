@@ -136,7 +136,7 @@ public class Button3DElement : MonoBehaviour
             {
                 if (!eData.Unlocked)
                 {
-                    // TODO: Double Click = Display Hint 
+                    NameGame.ShowHint(eData.Hint);
                 }
             }
 
@@ -182,6 +182,7 @@ public class Button3DElement : MonoBehaviour
         }
 
         SetText_Name(string.Empty);
+        NameGame.HideHint();
     }
 
     public void SetTextColor(Color c, bool endLerp = false)
