@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Button3DElementMenu : MonoBehaviour
 {
     public MeshRenderer rendererRef;
+    public GameObject Highlight;
 
     [Space]
 
@@ -21,8 +22,7 @@ public class Button3DElementMenu : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // ---
-        // Highlight
+        Highlight.SetActive(true);
     }
 
     void OnMouseOver() 
@@ -42,8 +42,7 @@ public class Button3DElementMenu : MonoBehaviour
 
     void OnMouseExit()
     {
-        // ---
-        // Clear Highlight
+        Highlight.SetActive(false);
     }
 
 }
