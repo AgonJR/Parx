@@ -12,6 +12,12 @@ public class NameGame : MonoBehaviour
     public Button3DElement[] Butts;
     public List<ElementData> allElementsData;
 
+    [Space]
+
+    public GameObject PauseBlocker;
+    public Animator pauseAnimator;
+    public bool Paused = false;
+
     private void Awake()
     {
         Manager = this;
@@ -131,6 +137,13 @@ public class NameGame : MonoBehaviour
             Butts[i].SetText_Symbol(string.Empty);
             Butts[i].SetText_AtomicNumber(string.Empty);
         }
+    }
+
+    public static void PauseGame(bool pause)
+    {
+        Manager.Paused = pause;
+        Manager.PauseBlocker.SetActive(pause);
+        Manager.pauseAnimator.Play(pause ? "PauseMenuIn" : "PauseMenuOut");
     }
 }
 

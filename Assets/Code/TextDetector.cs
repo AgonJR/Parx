@@ -48,6 +48,8 @@ public class TextDetector : MonoBehaviour
 
     private bool DetectInput()
     {
+        if (NameGame.Manager.Paused) return CheckForESC();
+
         if ( Input.inputString.Equals(string.Empty) == false )
         {
             _errAnimator.gameObject.SetActive(false); // Clear previous error
@@ -70,9 +72,7 @@ public class TextDetector : MonoBehaviour
                 }
                 else if (c == '\u001b') // Unicode for ESC
                 {
-                    // TODO: open a pause menu instead, with an option to reset
-                    _arRef.PlayOneShot(sfxDelete);
-                    NameGame.Manager.Reset();
+                    NameGame.PauseGame(true);
                 }
                 else if (c == '0') 
                 {
@@ -96,6 +96,22 @@ public class TextDetector : MonoBehaviour
             return true;
         }
 
+        return false;
+    }
+
+    private bool CheckForESC()
+    {
+        if ( Input.inputString.Equals(string.Empty) == false )
+        {
+            foreach (char c in Input.inputString)
+            {
+                if (c == '\u001b') // Unicode for ESC
+                {
+                    NameGame.PauseGame(false);
+                }
+            }
+        }
+        
         return false;
     }
 
