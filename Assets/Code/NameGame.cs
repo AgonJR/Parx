@@ -20,7 +20,11 @@ public class NameGame : MonoBehaviour
 
     [Space]
 
+    public MeshRenderer musicUIToggle;
+    public MeshRenderer sfxUIToggle;
     public TextDetector TextComp;
+    public Material matToggleOff;
+    public Material matToggleOn;
     public AudioSource asMusic;
     public bool Music = true;
     public bool SFX = true;
@@ -159,12 +163,14 @@ public class NameGame : MonoBehaviour
     {
         Manager.Music = !Manager.Music;
         Manager.asMusic.enabled = Manager.Music;
+        Manager.musicUIToggle.material = Manager.Music ? Manager.matToggleOn : Manager.matToggleOff;
     }
 
     public static void ToggleSFX()
     {
         Manager.SFX = !Manager.SFX;
         Manager.TextComp.EnableSFX(Manager.SFX);
+        Manager.sfxUIToggle.material = Manager.SFX ? Manager.matToggleOn : Manager.matToggleOff;
     }
 
     public static void ExitGame()
