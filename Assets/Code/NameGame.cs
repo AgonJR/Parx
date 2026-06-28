@@ -11,6 +11,7 @@ public class NameGame : MonoBehaviour
     public TextAsset DataCSV;
     public Button3DElement[] Butts;
     public List<ElementData> allElementsData;
+    public int TotalUnlocked => allElementsData.Count(el => el.Unlocked);
 
     [Space]
 
@@ -22,6 +23,7 @@ public class NameGame : MonoBehaviour
 
     public MeshRenderer musicUIToggle;
     public MeshRenderer sfxUIToggle;
+    public TextMesh ProgeressCount;
     public TextDetector TextComp;
     public Material matToggleOff;
     public Material matToggleOn;
@@ -157,6 +159,7 @@ public class NameGame : MonoBehaviour
         Manager.Paused = pause;
         Manager.PauseBlocker.SetActive(pause);
         Manager.pauseAnimator.Play(pause ? "PauseMenuIn" : "PauseMenuOut");
+        if (pause) Manager.ProgeressCount.text = Manager.TotalUnlocked.ToString() + " / 118";
     }
 
     public static void ToggleMusic()
