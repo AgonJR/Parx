@@ -28,6 +28,8 @@ public class TextDetector : MonoBehaviour
     private TextFade _errFade;
     private TextFade _crrFade;
 
+    public void EnableSFX(bool on) => _arRef.enabled = on;
+
     private float _lastInputTime = 0.0f;
     private float _inputLock = -1.0f;
 
@@ -64,7 +66,7 @@ public class TextDetector : MonoBehaviour
                 {
                     if (_currentInput.Length > 0)
                     {
-                        _arRef.PlayOneShot(sfxDelete);
+                        PlaySFX(sfxDelete);
                         _currentInput = _currentInput.Substring(0, _currentInput.Length - 1);
                     }
                     else
@@ -77,19 +79,19 @@ public class TextDetector : MonoBehaviour
                 else if (c == '0') 
                 {
                     // TODO: REMOVE for Release
-                    _arRef.PlayOneShot(sfxFound);
+                    PlaySFX(sfxFound);
                     NameGame.Manager.UnlockAll();
                 }
                 else if (!char.IsLetter(c))
                 {
-                    _arRef.PlayOneShot(sfxBadIn);
+                    PlaySFX(sfxBadIn);
                     return false;
                 }
                 else
                 {
                     _currentInput += c;
                     // _arRef.pitch += _arRef.pitch <= 1.3 ? 0.03f : 0f;
-                    // _arRef.PlayOneShot(sfxTyping);
+                    // PlaySFX(sfxTyping);
                 }
             }
             
@@ -128,12 +130,12 @@ public class TextDetector : MonoBehaviour
                     // "Fixes" latest mistake if backspace pressed during lock
                     _currentInput = OnScreenTextErr.text.Substring(0, OnScreenTextErr.text.Length - 1);
                     OnScreenTextErr.text = string.Empty;
-                    _arRef.PlayOneShot(sfxDelete);
                     UpdateDisplayText();
+                    PlaySFX(sfxDelete);
                 }
                 else
                 {
-                    _arRef.PlayOneShot(sfxLocked);
+                    PlaySFX(sfxLocked);
                 }
 
                 _inputLock = -1;
@@ -160,8 +162,7 @@ public class TextDetector : MonoBehaviour
             {
                 if (NameGame.Manager.UnlockElement(_currentInput))
                 {
-                    _arRef.pitch = 1.0f;
-                    _arRef.PlayOneShot(sfxFound);
+                    _arRef.pitch = 1.0f; PlaySFX(sfxFound);
 
                     _crrAnimator.gameObject.SetActive(true);
                     OnScreenTextCrr.text = CapitalizeFirstLetter(_currentInput);
@@ -174,7 +175,7 @@ public class TextDetector : MonoBehaviour
             else
             {
                 _arRef.pitch = 1.0f;
-                _arRef.PlayOneShot(sfxError);
+                PlaySFX(sfxError);
                 _inputLock = ErrorLockDuration;
 
                 _errFade.Fade(true, 0.03f); //Reset Color
@@ -199,5 +200,10 @@ public class TextDetector : MonoBehaviour
     {
         if (txt.Length > 0) { txt = char.ToUpper(txt[0]).ToString() + txt[1..]; }
         return txt;
+    }
+
+    public void PlaySFX(AudioClip sfx)
+    {
+        if ( NameGame.Manager.SFX ) { _arRef.PlayOneShot(sfx); }
     }
 }

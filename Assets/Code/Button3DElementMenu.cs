@@ -34,14 +34,16 @@ public class Button3DElementMenu : MonoBehaviour
     {
         if ( Input.GetMouseButtonDown(0) )
         { 
-            _arRef.PlayOneShot(sfxClick);
             onClick.Invoke();
+            if ( NameGame.Manager.SFX) 
+                _arRef.PlayOneShot(sfxClick);
         }
     }
 
     void OnMouseExit()
     {
         // ---
+        // Clear Highlight
     }
 
 }

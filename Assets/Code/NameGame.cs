@@ -18,6 +18,13 @@ public class NameGame : MonoBehaviour
     public Animator pauseAnimator;
     public bool Paused = false;
 
+    [Space]
+
+    public TextDetector TextComp;
+    public AudioSource asMusic;
+    public bool Music = true;
+    public bool SFX = true;
+
     private void Awake()
     {
         Manager = this;
@@ -144,6 +151,18 @@ public class NameGame : MonoBehaviour
         Manager.Paused = pause;
         Manager.PauseBlocker.SetActive(pause);
         Manager.pauseAnimator.Play(pause ? "PauseMenuIn" : "PauseMenuOut");
+    }
+
+    public static void ToggleMusic()
+    {
+        Manager.Music = !Manager.Music;
+        Manager.asMusic.enabled = Manager.Music;
+    }
+
+    public static void ToggleSFX()
+    {
+        Manager.SFX = !Manager.SFX;
+        Manager.TextComp.EnableSFX(Manager.SFX);
     }
 }
 

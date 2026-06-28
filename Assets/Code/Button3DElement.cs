@@ -144,16 +144,24 @@ public class Button3DElement : MonoBehaviour
 
             if (eData.Unlocked) 
             {
-                _arRef.pitch = eData.Names.Count > 1 ? 1.13f : 1.0f;
+                if (NameGame.Manager.SFX)
+                { 
+                    _arRef.pitch = eData.Names.Count > 1 ? 1.13f : 1.0f;
+                    _arRef.PlayOneShot(sfxClick);
+                }
+
                 eData.DisplayNameIndex = (eData.DisplayNameIndex + 1) % eData.Names.Count;
                 PingTextColor(eData.Names.Count > 1 ? Color.gold : Color.whiteSmoke, Color.cyan, 0.5f);
                 SetText_Name(eData.DisplayName);
-                _arRef.PlayOneShot(sfxClick);
             }
             else if (!eData.Unlocked)
             {
-                _arRef.pitch = 0.96f;
-                _arRef.PlayOneShot(sfxClick);
+                if (NameGame.Manager.SFX) 
+                { 
+                    _arRef.pitch = 0.96f;
+                    _arRef.PlayOneShot(sfxClick);
+                }
+                
                 SetText_AtomicNumber(eData.Number.ToString());
                 SetText_Symbol(eData.Symbol);
                 SetTextColor(Color.white, true);
