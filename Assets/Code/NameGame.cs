@@ -144,6 +144,8 @@ public class NameGame : MonoBehaviour
             Butts[i].SetText_Symbol(string.Empty);
             Butts[i].SetText_AtomicNumber(string.Empty);
         }
+
+        TextComp.ResetInput();
     }
 
     public static void PauseGame(bool pause)
