@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class NameGame : MonoBehaviour
@@ -40,9 +41,10 @@ public class NameGame : MonoBehaviour
     {
         CollectButts();
         ReadData();
+        LoadSave();
     }
 
-    public bool UnlockElement(string element)
+    public bool UnlockElement(string element, bool saveGame = true)
     {
         ElementData el = allElementsData.FirstOrDefault(e => e.Names.Contains(element.ToLower()));
         
@@ -54,8 +56,10 @@ public class NameGame : MonoBehaviour
             Butts[index].SetText_Symbol(allElementsData[index].Symbol);
             Butts[index].PingTextColor(Color.green, Color.white, 1.3f);
             Butts[index].UpdateMaterial();
+            if(saveGame) SaveGame();
             return true;
         }
+
         
         return false;
     }
@@ -64,7 +68,7 @@ public class NameGame : MonoBehaviour
     {
         foreach (ElementData el in allElementsData)
         {
-            UnlockElement(el.Names.FirstOrDefault());
+            UnlockElement(el.Names.FirstOrDefault(), false);
         }
     }
 
@@ -179,6 +183,35 @@ public class NameGame : MonoBehaviour
     public static void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void SaveGame()
+    {
+        // Aggregate converts unlock booleans into a single "10110..." string
+        string data = allElementsData.Aggregate(new StringBuilder(), (sb, element) => sb.Append(element.Unlocked ? '1' : '0')).ToString();
+        
+        PlayerPrefs.SetString("UnlockedElements", data);
+        PlayerPrefs.Save(); // Needed for WebGL support
+    }
+
+    public void ClearSave()
+    {
+        PlayerPrefs.SetString("UnlockedElements", new string('0', allElementsData.Count));
+        PlayerPrefs.Save(); // Creates a string of '0's
+    }
+
+    public void LoadSave()
+    {
+        string unlockData = PlayerPrefs.GetString("UnlockedElements", "");
+
+        if (unlockData.Length == allElementsData.Count)
+        {
+            for (int i = 0; i < allElementsData.Count; i++)
+            {
+                if (unlockData[i] == '1')
+                    UnlockElement(allElementsData[i].Names.FirstOrDefault(), false);
+            }
+        }
     }
 }
 
