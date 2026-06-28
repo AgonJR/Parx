@@ -131,14 +131,10 @@ public class Button3DElement : MonoBehaviour
         if ( Input.GetMouseButtonDown(0) )
         { 
             float timeSinceLastClick = Time.time - _lastClickTime;
+            bool doubleClick = timeSinceLastClick <= 0.369f;
 
-            if (timeSinceLastClick <= 0.2f)
-            {
-                if (!eData.Unlocked)
-                {
-                    NameGame.ShowHint(eData.Hint);
-                }
-            }
+            if (doubleClick & !eData.Unlocked) 
+            { NameGame.ShowHint(eData.Hints[0]); }
 
             _lastClickTime = Time.time;
 
@@ -146,7 +142,7 @@ public class Button3DElement : MonoBehaviour
             {
                 if (NameGame.Manager.SFX)
                 { 
-                    _arRef.pitch = eData.Names.Count > 1 ? 1.13f : 1.0f;
+                    _arRef.pitch = eData.Names.Count > 1 ? 1.13f : 1.01f;
                     _arRef.PlayOneShot(sfxClick);
                 }
 
@@ -158,7 +154,7 @@ public class Button3DElement : MonoBehaviour
             {
                 if (NameGame.Manager.SFX) 
                 { 
-                    _arRef.pitch = 0.96f;
+                    _arRef.pitch = doubleClick ? 0.99f : 0.96f;
                     _arRef.PlayOneShot(sfxClick);
                 }
                 

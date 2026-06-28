@@ -157,16 +157,24 @@ public class NameGame : MonoBehaviour
 
         for (int i = 0; i < (rows.Length / 4); i++) 
         {
+            int lastIndex = 0;
             int offset = i * 4;
-            int elementIndex = int.Parse(rows[offset]) - 1;
+            string[] meta = rows[offset].Split(',');
+            int elementIndex = int.Parse(meta[0]) - 1;
+            allElementsData[elementIndex].Hints = new List<string>();
 
-            string hinText = rows[offset+1] + "\n" 
-                           + rows[offset+2] + "\n" 
-                           + rows[offset+3];
+            for (int t = 1; t < meta.Length; t++ )
+            {
+                int index = int.Parse(meta[t]);
 
-            allElementsData[elementIndex].Hint = hinText;
+                      if (index == lastIndex)  
+                      { allElementsData[elementIndex].Hints[index-1] += " \n"; }
+                else  { allElementsData[elementIndex].Hints.Add(string.Empty); }
 
-            // Debug.Log("Hint [ " + allElementsData[elementIndex].Names[0] + " ] : " + hinText);
+                if (index > 0) { allElementsData[elementIndex].Hints[index-1] += rows[offset+t]; }
+
+                lastIndex = index;
+            }
         }
     }
 
@@ -276,9 +284,9 @@ public class NameGame : MonoBehaviour
 public class ElementData
 {
     public int Number;
-    public string Hint;
     public string Symbol;
     public List<string> Names;
+    public List<string> Hints;
     public bool Unlocked = false;
     public int DisplayNameIndex = 0;
     public string DisplayName => Names[DisplayNameIndex];
