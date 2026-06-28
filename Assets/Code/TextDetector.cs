@@ -78,9 +78,10 @@ public class TextDetector : MonoBehaviour
                 }
                 else if (c == '0') 
                 {
-                    // TODO: REMOVE for Release
-                    PlaySFX(sfxFound);
-                    NameGame.Manager.UnlockAll();
+                    #if UNITY_EDITOR
+                        PlaySFX(sfxFound); // TODO: REMOVE for Release
+                        NameGame.Manager.UnlockAll();
+                    #endif
                 }
                 else if (!char.IsLetter(c))
                 {
