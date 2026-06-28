@@ -144,6 +144,7 @@ public class Button3DElement : MonoBehaviour
 
             if (eData.Unlocked) 
             {
+                _arRef.pitch = eData.Names.Count > 1 ? 1.13f : 1.0f;
                 eData.DisplayNameIndex = (eData.DisplayNameIndex + 1) % eData.Names.Count;
                 PingTextColor(eData.Names.Count > 1 ? Color.gold : Color.whiteSmoke, Color.cyan, 0.5f);
                 SetText_Name(eData.DisplayName);
