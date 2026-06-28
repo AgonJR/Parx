@@ -107,7 +107,7 @@ public class TextDetector : MonoBehaviour
         {
             foreach (char c in Input.inputString)
             {
-                if (c == '\u001b') // Unicode for ESC
+                if (c == ' ' || c == '\n' || c == '\u001b')
                 {
                     NameGame.PauseGame(false);
                 }
