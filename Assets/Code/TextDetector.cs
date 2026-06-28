@@ -206,4 +206,10 @@ public class TextDetector : MonoBehaviour
     {
         if ( NameGame.Manager.SFX ) { _arRef.PlayOneShot(sfx); }
     }
+
+    public void ResetInput()
+    {
+        _currentInput = string.Empty;
+        OnScreenTextObj.text = "Type to Start";
+    }
 }
