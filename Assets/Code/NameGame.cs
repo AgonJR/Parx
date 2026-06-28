@@ -171,6 +171,8 @@ public class NameGame : MonoBehaviour
         Manager.Music = !Manager.Music;
         Manager.asMusic.enabled = Manager.Music;
         Manager.musicUIToggle.material = Manager.Music ? Manager.matToggleOn : Manager.matToggleOff;
+        PlayerPrefs.SetInt("EleNamesMusic", Manager.Music ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     public static void ToggleSFX()
@@ -178,6 +180,8 @@ public class NameGame : MonoBehaviour
         Manager.SFX = !Manager.SFX;
         Manager.TextComp.EnableSFX(Manager.SFX);
         Manager.sfxUIToggle.material = Manager.SFX ? Manager.matToggleOn : Manager.matToggleOff;
+        PlayerPrefs.SetInt("EleNamesSFX", Manager.SFX ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     public static void ExitGame()
@@ -212,6 +216,9 @@ public class NameGame : MonoBehaviour
                     UnlockElement(allElementsData[i].Names.FirstOrDefault(), false);
             }
         }
+
+        if ( PlayerPrefs.GetInt("EleNamesSFX", 1) == 0 ) ToggleSFX();
+        if ( PlayerPrefs.GetInt("EleNamesMusic", 1) == 0 ) ToggleMusic();
     }
 }
 
