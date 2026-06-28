@@ -1277,7 +1277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.73, y: 1}
+  m_AnchoredPosition: {x: -1.79, y: 1}
   m_SizeDelta: {x: 19.6, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!102 &221277756
@@ -1297,8 +1297,8 @@ TextMesh:
   m_OffsetZ: 0
   m_CharacterSize: 1.13
   m_LineSpacing: 1.03
-  m_Anchor: 3
-  m_Alignment: 0
+  m_Anchor: 4
+  m_Alignment: 1
   m_TabSize: 3
   m_FontSize: 93
   m_FontStyle: 0
@@ -2031,9 +2031,9 @@ MonoBehaviour:
   matToggleOff: {fileID: 2100000, guid: 6e6b5b3e60584a446b49ef09d9fcb1b8, type: 2}
   matToggleOn: {fileID: 2100000, guid: 9d1cfabd85564be4a81a4b57ef8c0498, type: 2}
   asMusic: {fileID: 1428034933}
+  HintDisplayed: 0
   Music: 1
   SFX: 1
-  HintDisplayed: 0
 --- !u!1001 &324634682
 PrefabInstance:
   m_ObjectHideFlags: 0

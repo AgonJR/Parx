@@ -133,8 +133,11 @@ public class Button3DElement : MonoBehaviour
             float timeSinceLastClick = Time.time - _lastClickTime;
             bool doubleClick = timeSinceLastClick <= 0.369f;
 
-            if (doubleClick & !eData.Unlocked) 
-            { NameGame.ShowHint(eData.Hints[0]); }
+            if (doubleClick && !NameGame.Manager.HintDisplayed && !eData.Unlocked) 
+            { 
+                NameGame.ShowHint(eData.Hints[eData.HintsIndex]);
+                eData.HintsIndex = (eData.HintsIndex + 1) % eData.Hints.Count;
+            }
 
             _lastClickTime = Time.time;
 

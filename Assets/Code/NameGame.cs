@@ -287,6 +287,7 @@ public class ElementData
     public string Symbol;
     public List<string> Names;
     public List<string> Hints;
+    public int HintsIndex = 0;
     public bool Unlocked = false;
     public int DisplayNameIndex = 0;
     public string DisplayName => Names[DisplayNameIndex];
