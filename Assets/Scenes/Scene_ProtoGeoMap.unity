@@ -1811,8 +1811,8 @@ MonoBehaviour:
   PauseBlocker: {fileID: 85838243}
   pauseAnimator: {fileID: 485201839}
   Paused: 0
-  TextComp: {fileID: 0}
-  asMusic: {fileID: 0}
+  TextComp: {fileID: 320688976}
+  asMusic: {fileID: 1428034933}
   Music: 1
   SFX: 1
 --- !u!1001 &324634682
