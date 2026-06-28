@@ -166,6 +166,11 @@ public class NameGame : MonoBehaviour
         Manager.SFX = !Manager.SFX;
         Manager.TextComp.EnableSFX(Manager.SFX);
     }
+
+    public static void ExitGame()
+    {
+        Application.Quit();
+    }
 }
 
 [System.Serializable]
