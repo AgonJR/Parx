@@ -165,7 +165,7 @@ public class NameGame : MonoBehaviour
 
             for (int t = 1; t < meta.Length; t++ )
             {
-                int index = int.Parse(meta[t]);
+                int index = int.Parse(meta[t]); if (index == 0) continue;
 
                       if (index == lastIndex)  
                       { allElementsData[elementIndex].Hints[index-1] += " \n"; }
