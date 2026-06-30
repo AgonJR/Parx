@@ -104,7 +104,7 @@ public class NameGame : MonoBehaviour
             foreach (ElementData el in alreadyUnlocked)
             {
                 int index = allElementsData.IndexOf(el);
-                Butts[index].PingTextColor(Color.red, Color.white, 1.5f);
+                Butts[index].PingTextColor(Color.orange, Color.white, 1.5f);
             }
         }
 

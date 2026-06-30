@@ -103,6 +103,11 @@ public class Button3DElement : MonoBehaviour
             rendererRef.material.color = lerpedColor;
 
             _zoomLerp -= Time.deltaTime;
+
+            if (_zoomLerp <= 0 && !_zoomUp)
+            {
+                rendererRef.material = eData.Unlocked ? matUnlocked : _matDefault;
+            }
         }
     }
 
@@ -111,13 +116,11 @@ public class Button3DElement : MonoBehaviour
         if (eData.Unlocked) 
         {
             SetText_Name(eData.DisplayName);
-            SetTextColor(Color.cyan);
-            _pingLerp = -1.0f;
             Zoom(true);
         }
         else
         {
-            PingTextColor(Color.white, 0.13f);
+            PingTextColor(Color.white, _pingEndColour == Color.clear ? 0.03f : 0.13f);
         }
     }
 
@@ -150,7 +153,7 @@ public class Button3DElement : MonoBehaviour
                 }
 
                 eData.DisplayNameIndex = (eData.DisplayNameIndex + 1) % eData.Names.Count;
-                PingTextColor(eData.Names.Count > 1 ? Color.gold : Color.whiteSmoke, Color.cyan, 0.5f);
+                PingTextColor(eData.Names.Count > 1 ? Color.gold : Color.cyan, Color.white, 0.31f);
                 SetText_Name(eData.DisplayName);
             }
             else if (!eData.Unlocked)
@@ -172,7 +175,7 @@ public class Button3DElement : MonoBehaviour
     {
         if (eData.Unlocked)
         {
-            PingTextColor(Color.cyan, Color.white, 0.5f);
+            PingTextColor(Color.cyan, Color.white, 0.631f);
             Zoom(false);
         }
         else
