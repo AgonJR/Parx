@@ -23,7 +23,8 @@ public class NameGame : MonoBehaviour
 
     [Space]
 
-    public TextMesh HintTextbox;
+    public TextMesh HintTextbox1;
+    public TextMesh HintTextbox2;
     public Animator hintAnimator;
 
     [Space]
@@ -39,6 +40,7 @@ public class NameGame : MonoBehaviour
     [Space]
 
     public bool HintDisplayed = false;
+    public int  HintedElement = 0;
     public bool Music = true;
     public bool SFX = true;
 
@@ -64,6 +66,7 @@ public class NameGame : MonoBehaviour
         {
             el.Unlocked = true;
             int index = allElementsData.IndexOf(el);
+            if (HintedElement == el.Number) { HideHint(); }
             Butts[index].SetText_AtomicNumber((index+1).ToString());
             Butts[index].SetText_Symbol(allElementsData[index].Symbol);
             Butts[index].PingTextColor(Color.green, Color.white, 1.3f);
@@ -197,13 +200,14 @@ public class NameGame : MonoBehaviour
         TextComp.ResetInput();
     }
 
-    public static void ShowHint(string hint)
+    public static void ShowHint(string hint, int element)
     {
-        Manager.HintTextbox.text = hint;
-
         if(!Manager.HintDisplayed) 
             Manager.hintAnimator.Play("HintEnter");
 
+        Manager.HintTextbox1.text = hint;
+        Manager.HintTextbox2.text = hint;
+        Manager.HintedElement = element;
         Manager.HintDisplayed = true;
     }
 
@@ -222,6 +226,7 @@ public class NameGame : MonoBehaviour
         Manager.PauseBlocker.SetActive(pause);
         Manager.pauseAnimator.Play(pause ? "PauseMenuIn" : "PauseMenuOut");
         if (pause) Manager.ProgeressCount.text = Manager.TotalUnlocked.ToString() + " / 118";
+        if (pause) HideHint();
     }
 
     public static void ToggleMusic()

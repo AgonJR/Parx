@@ -31,12 +31,19 @@ public class Button3DElement : MonoBehaviour
     private float _lastClickTime;
     private Material _matDefault;
     private MeshRenderer _mshRdr;
+    private float _timeOnEnter;
+
+    // -----------------------------------------------------------------------------------------------
 
     void Awake()
     {
         _mshRdr = rendererRef;
         _matDefault = _mshRdr.material;
         _arRef = GetComponent<AudioSource>();
+        
+        txtSymbol.gameObject.SetActive(true);
+        txtAtomicNumber.gameObject.SetActive(true);
+        txtNameSubtitle.gameObject.SetActive(true);
 
         // Zoom Data
 
@@ -48,7 +55,10 @@ public class Button3DElement : MonoBehaviour
 
         _colorBeforeZoom = matUnlocked.color;
         _colorAfterZoom = _colorBeforeZoom; 
-        _colorAfterZoom.a = 0.9631f;
+        _colorAfterZoom.a = 1.0f;
+
+        SetText_Name(string.Empty);
+        SetTextColor(Color.clear);
     }
 
     void FixedUpdate()
@@ -113,6 +123,8 @@ public class Button3DElement : MonoBehaviour
 
     void OnMouseEnter()
     {
+        _timeOnEnter = Time.time;
+
         if (eData.Unlocked) 
         {
             SetText_Name(eData.DisplayName);
@@ -120,8 +132,25 @@ public class Button3DElement : MonoBehaviour
         }
         else
         {
-            PingTextColor(Color.white, _pingEndColour == Color.clear ? 0.03f : 0.13f);
+            SetText_Symbol(eData.Symbol);
+            PingTextColor(Color.white, _pingEndColour == Color.clear ? 0.31f : 1.13f);
         }
+    }
+
+    void OnMouseExit()
+    {
+        if (eData.Unlocked)
+        {
+            Zoom(false);
+            if ( Time.time < (_timeOnEnter + 0.3f) )
+                PingTextColor(Color.cyan, Color.white, 0.631f);
+        }
+        else
+        {
+            PingTextColor(Color.white, Color.clear, 0.31f);
+        }
+
+        SetText_Name(string.Empty);
     }
 
     void OnMouseOver() 
@@ -135,12 +164,6 @@ public class Button3DElement : MonoBehaviour
         { 
             float timeSinceLastClick = Time.time - _lastClickTime;
             bool doubleClick = timeSinceLastClick <= 0.369f;
-
-            if (doubleClick && !NameGame.Manager.HintDisplayed && !eData.Unlocked) 
-            { 
-                NameGame.ShowHint(eData.Hints[eData.HintsIndex]);
-                eData.HintsIndex = (eData.HintsIndex + 1) % eData.Hints.Count;
-            }
 
             _lastClickTime = Time.time;
 
@@ -164,27 +187,15 @@ public class Button3DElement : MonoBehaviour
                     _arRef.PlayOneShot(sfxClick);
                 }
                 
-                SetText_AtomicNumber(eData.Number.ToString());
-                SetText_Symbol(eData.Symbol);
+                NameGame.ShowHint(eData.Hints[eData.HintsIndex], eData.Number);
+                if (!NameGame.Manager.HintDisplayed) 
+                { 
+                    eData.HintsIndex = (eData.HintsIndex + 1) % eData.Hints.Count;
+                }
+
                 SetTextColor(Color.white, true);
             }
         }
-    }
-
-    void OnMouseExit()
-    {
-        if (eData.Unlocked)
-        {
-            PingTextColor(Color.cyan, Color.white, 0.631f);
-            Zoom(false);
-        }
-        else
-        {
-            PingTextColor(Color.white, Color.clear, 0.5f);
-        }
-
-        SetText_Name(string.Empty);
-        NameGame.HideHint();
     }
 
     public void SetTextColor(Color c, bool endLerp = false)

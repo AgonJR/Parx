@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2837599141807702330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2626113724769810681
 RectTransform:
   m_ObjectHideFlags: 0
@@ -498,6 +498,8 @@ MonoBehaviour:
     Number: 0
     Symbol: 
     Names: []
+    Hints: []
+    HintsIndex: 0
     Unlocked: 0
     DisplayNameIndex: 0
 --- !u!1 &7587370119257186949
@@ -517,7 +519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2427680472888787423
 RectTransform:
   m_ObjectHideFlags: 0
