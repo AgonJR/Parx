@@ -188,10 +188,7 @@ public class Button3DElement : MonoBehaviour
                 }
                 
                 NameGame.ShowHint(eData.Hints[eData.HintsIndex], eData.Number);
-                if (!NameGame.Manager.HintDisplayed) 
-                { 
-                    eData.HintsIndex = (eData.HintsIndex + 1) % eData.Hints.Count;
-                }
+                eData.HintsIndex = (eData.HintsIndex + 1) % eData.Hints.Count;
 
                 SetTextColor(Color.white, true);
             }

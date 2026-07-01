@@ -26,6 +26,7 @@ public class NameGame : MonoBehaviour
     public TextMesh HintTextbox1;
     public TextMesh HintTextbox2;
     public Animator hintAnimator;
+    public Animator hintTextAnim;
 
     [Space]
 
@@ -204,6 +205,8 @@ public class NameGame : MonoBehaviour
     {
         if(!Manager.HintDisplayed) 
             Manager.hintAnimator.Play("HintEnter");
+        else
+            Manager.hintTextAnim.Play("HintPing");
 
         Manager.HintTextbox1.text = hint;
         Manager.HintTextbox2.text = hint;
