@@ -23,8 +23,11 @@ public class NameGame : MonoBehaviour
 
     [Space]
 
+    //TODO: Move to a Hint Manager Script
     public TextMesh HintTextbox1;
     public TextMesh HintTextbox2;
+    public TextMesh HintTxtSymbol;
+    public TextMesh HintTxtNumber;
     public Animator hintAnimator;
     public Animator hintTextAnim;
 
@@ -201,7 +204,7 @@ public class NameGame : MonoBehaviour
         TextComp.ResetInput();
     }
 
-    public static void ShowHint(string hint, int element)
+    public static void ShowHint(string hint, ElementData element)
     {
         if(!Manager.HintDisplayed) 
             Manager.hintAnimator.Play("HintEnter");
@@ -210,7 +213,10 @@ public class NameGame : MonoBehaviour
 
         Manager.HintTextbox1.text = hint;
         Manager.HintTextbox2.text = hint;
-        Manager.HintedElement = element;
+        Manager.HintedElement = element.Number;
+        Manager.HintTxtSymbol.text = element.Symbol;
+        Manager.HintTxtNumber.text = element.Number.ToString();
+        
         Manager.HintDisplayed = true;
     }
 

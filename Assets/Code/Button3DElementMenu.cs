@@ -3,10 +3,14 @@ using UnityEngine.Events;
 
 public class Button3DElementMenu : MonoBehaviour
 {
+    private static readonly int HilightInHash = Animator.StringToHash("HintHilight_In");
+    private static readonly int HilightOutHash = Animator.StringToHash("HintHilight_Out");
+
     public float holdToActivate = 0.0f;
     public MeshRenderer rendererRef;
     public Transform progressBar;
     public GameObject Highlight;
+    public Animator HiliteAnim;
 
     [Space]
 
@@ -24,6 +28,7 @@ public class Button3DElementMenu : MonoBehaviour
     { 
         _arRef = GetComponent<AudioSource>();
         _progressZero = new Vector3(0, 1, 1);
+        if (HiliteAnim != null) HiliteAnim.Play(HilightOutHash);
     }
 
     void FixedUpdate()
@@ -42,6 +47,15 @@ public class Button3DElementMenu : MonoBehaviour
     void OnMouseEnter()
     {
         Highlight.SetActive(true);
+        if ( HiliteAnim != null ) { HiliteAnim.Play(HilightInHash); }
+    }
+
+    void OnMouseExit()
+    {
+        _pressed = false;
+        Highlight.SetActive(false);
+        if ( HiliteAnim != null) { HiliteAnim.Play(HilightOutHash); }
+        if (progressBar != null) progressBar.localScale = _progressZero;
     }
 
     void OnMouseOver() 
@@ -72,13 +86,6 @@ public class Button3DElementMenu : MonoBehaviour
         onClick.Invoke();
         if ( NameGame.Manager.SFX) 
             _arRef.PlayOneShot(sfxClick);
-    }
-
-    void OnMouseExit()
-    {
-        _pressed = false;
-        Highlight.SetActive(false);
-        if (progressBar != null) progressBar.localScale = _progressZero;
     }
 
 }

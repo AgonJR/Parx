@@ -187,7 +187,7 @@ public class Button3DElement : MonoBehaviour
                     _arRef.PlayOneShot(sfxClick);
                 }
                 
-                NameGame.ShowHint(eData.Hints[eData.HintsIndex], eData.Number);
+                NameGame.ShowHint(eData.Hints[eData.HintsIndex], eData);
                 eData.HintsIndex = (eData.HintsIndex + 1) % eData.Hints.Count;
 
                 SetTextColor(Color.white, true);
