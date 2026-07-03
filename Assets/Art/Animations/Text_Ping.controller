@@ -180,7 +180,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: InputError
-  m_Speed: 1
+  m_Speed: 1.36
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3317618478999325182}

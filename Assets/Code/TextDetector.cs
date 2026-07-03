@@ -57,6 +57,7 @@ public class TextDetector : MonoBehaviour
             _errAnimator.gameObject.SetActive(false); // Clear previous error
             _crrAnimator.gameObject.SetActive(false); // Clear previous answer
 
+            bool allowBack = Time.time - _lastInputTime < 3.33f;
             if ( Time.time - _lastInputTime > 1.0f ) // Reset pitch between pauses
             { _arRef.pitch = 1.0f; } _lastInputTime = Time.time;
 
@@ -68,6 +69,12 @@ public class TextDetector : MonoBehaviour
                     {
                         PlaySFX(sfxDelete);
                         _currentInput = _currentInput.Substring(0, _currentInput.Length - 1);
+                    }
+                    else if  (allowBack && !OnScreenTextErr.text.Equals(string.Empty))
+                    {
+                        _currentInput = OnScreenTextErr.text.Substring(0, OnScreenTextErr.text.Length - 1);
+                        OnScreenTextErr.text = string.Empty;
+                        PlaySFX(sfxDelete);
                     }
                     else
                         return false;
@@ -168,6 +175,7 @@ public class TextDetector : MonoBehaviour
                     _crrAnimator.gameObject.SetActive(true);
                     OnScreenTextCrr.text = CapitalizeFirstLetter(_currentInput);
                     _crrAnimator.Play("InputCorrect", 0, 0f);
+                    OnScreenTextErr.text = string.Empty;
                     _crrFade.Fade(false, 0.7f, 1.3f);
 
                     _currentInput = string.Empty;
