@@ -125,6 +125,14 @@ public class Button3DElement : MonoBehaviour
     {
         _timeOnEnter = Time.time;
 
+        if (NameGame.Manager.HintedElement != eData.Number)
+        {
+            if (NameGame.Manager.HintDisplayed && NameGame.Manager.HintMinTimeElapse)
+            {
+                if (Random.Range(1, 101) > 93) { NameGame.HideHint(slow:true); }
+            }
+        }
+
         if (eData.Unlocked) 
         {
             SetText_Name(eData.DisplayName);

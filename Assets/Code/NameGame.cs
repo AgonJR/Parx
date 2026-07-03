@@ -44,9 +44,12 @@ public class NameGame : MonoBehaviour
     [Space]
 
     public bool HintDisplayed = false;
+    public bool HintMinTimeElapse => Time.time - _hinTime > 3.1f;
     public int  HintedElement = 0;
     public bool Music = true;
     public bool SFX = true;
+
+    private float _hinTime;
 
     private void Awake()
     {
@@ -211,6 +214,7 @@ public class NameGame : MonoBehaviour
         else
             Manager.hintTextAnim.Play("HintPing");
 
+        Manager._hinTime = Time.time;
         Manager.HintTextbox1.text = hint;
         Manager.HintTextbox2.text = hint;
         Manager.HintedElement = element.Number;
@@ -222,9 +226,14 @@ public class NameGame : MonoBehaviour
 
     public static void HideHint()
     {
+        HideHint(slow:false);
+    }
+
+    public static void HideHint(bool slow = false)
+    {
         if(Manager.HintDisplayed)
         {
-            Manager.hintAnimator.Play("HintExit");
+            Manager.hintAnimator.Play(slow ? "HintExitSlow" : "HintExit");
             Manager.HintDisplayed = false;
         }
     }
