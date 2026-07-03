@@ -22,6 +22,7 @@ public class TextDetector : MonoBehaviour
     [Space]
 
     private string _currentInput = string.Empty;
+    private Animator _startAnimator;
     private Animator _errAnimator;
     private Animator _crrAnimator;
     private AudioSource _arRef;
@@ -36,10 +37,12 @@ public class TextDetector : MonoBehaviour
     void Start()
     {
         _arRef = GetComponent<AudioSource>();
+        _startAnimator = OnScreenTextObj.GetComponent<Animator>();
         _errAnimator = OnScreenTextErr.GetComponent<Animator>();
         _crrAnimator = OnScreenTextCrr.GetComponent<Animator>();
         _errFade =  OnScreenTextErr.GetComponent<TextFade>();
         _crrFade =  OnScreenTextCrr.GetComponent<TextFade>();
+        _startAnimator.Play("InputPrompt");
         _currentInput = string.Empty;
     }
 
@@ -54,6 +57,11 @@ public class TextDetector : MonoBehaviour
 
         if ( Input.inputString.Equals(string.Empty) == false )
         {
+            if ( _startAnimator.enabled )
+            {
+                _startAnimator.Play("ClearPrompt");
+            }
+
             _errAnimator.gameObject.SetActive(false); // Clear previous error
             _crrAnimator.gameObject.SetActive(false); // Clear previous answer
 
