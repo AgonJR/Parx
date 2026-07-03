@@ -54,6 +54,7 @@ public class NameGame : MonoBehaviour
     private void Awake()
     {
         Manager = this;
+        Application.targetFrameRate = 30;
     }
 
     private void Start()
