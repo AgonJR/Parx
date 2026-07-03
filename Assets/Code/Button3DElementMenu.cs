@@ -8,6 +8,7 @@ public class Button3DElementMenu : MonoBehaviour
 
     public float holdToActivate = 0.0f;
     public MeshRenderer rendererRef;
+    public AudioSource audioSource;
     public Transform progressBar;
     public GameObject Highlight;
     public Animator HiliteAnim;
@@ -20,15 +21,18 @@ public class Button3DElementMenu : MonoBehaviour
     [Space]
 
     private Vector3 _progressZero;
-    private AudioSource _arRef;
     private float _pressStart;
     private bool _pressed;
 
     void Start()
     { 
-        _arRef = GetComponent<AudioSource>();
+        if (audioSource == null) 
+            audioSource = GetComponent<AudioSource>();
+
         _progressZero = new Vector3(0, 1, 1);
-        if (HiliteAnim != null) HiliteAnim.Play(HilightOutHash);
+
+        if (HiliteAnim != null) 
+            HiliteAnim.Play(HilightOutHash);
     }
 
     void FixedUpdate()
@@ -46,16 +50,16 @@ public class Button3DElementMenu : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Highlight.SetActive(true);
+        if ( Highlight  != null ) { Highlight.SetActive(true); }
         if ( HiliteAnim != null ) { HiliteAnim.Play(HilightInHash); }
     }
 
     void OnMouseExit()
     {
         _pressed = false;
-        Highlight.SetActive(false);
+        if ( Highlight  != null) { Highlight.SetActive(false); }
         if ( HiliteAnim != null) { HiliteAnim.Play(HilightOutHash); }
-        if (progressBar != null) progressBar.localScale = _progressZero;
+        if (progressBar != null) { progressBar.localScale = _progressZero; }
     }
 
     void OnMouseOver() 
@@ -84,8 +88,8 @@ public class Button3DElementMenu : MonoBehaviour
     {
         _pressed = false;
         onClick.Invoke();
-        if ( NameGame.Manager.SFX) 
-            _arRef.PlayOneShot(sfxClick);
+        if (NameGame.Manager.SFX) 
+            audioSource.PlayOneShot(sfxClick);
     }
 
 }
