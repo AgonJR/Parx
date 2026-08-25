@@ -394,18 +394,18 @@ sed do eiusmod tempor incididunt ut lab ...
 99th quick brown fox jumps over the lazy dog
 Lorem ipsum dolor sit amet, consectetur adipisc
 sed do eiusmod tempor incididunt ut lab ...
-100,1,1,1
-100th quick brown fox jumps over the lazy dog
-Lorem ipsum dolor sit amet, consectetur adipisc
-sed do eiusmod tempor incididunt ut lab ...
-101,1,1,1
-101st quick brown fox jumps over the lazy dog
-Lorem ipsum dolor sit amet, consectetur adipisc
-sed do eiusmod tempor incididunt ut lab ...
-102,1,1,1
-102nd quick brown fox jumps over the lazy dog
-Lorem ipsum dolor sit amet, consectetur adipisc
-sed do eiusmod tempor incididunt ut lab ...
+100,1,0,0
+100th Hint
+x
+x
+101,1,2,2
+The first element to be produced one atom at a time
+Named after Dmitri Ivanovich Mendeleev, the
+Russian scientist who invented the periodic table
+102,1,0,0
+102nd Hint
+x
+x
 103,1,1,1
 103rd quick brown fox jumps over the lazy dog
 Lorem ipsum dolor sit amet, consectetur adipisc
